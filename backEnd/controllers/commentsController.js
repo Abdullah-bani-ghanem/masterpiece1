@@ -139,3 +139,30 @@ exports.adminDeleteComment = async (req, res) => {
         res.status(500).json({ message: 'Failed to delete comment by admin.' });
     }
 };
+
+
+
+
+
+
+
+// جلب جميع تعليقات الدراجات
+exports.getAllBikeComments = async (req, res) => {
+    try {
+      const comments = await BikeComment.find().populate('userId', 'name email');
+      res.status(200).json(comments);
+    } catch (error) {
+      res.status(500).json({ message: 'Error fetching bike comments', error });
+    }
+  };
+  
+  // حذف تعليق دراجة
+  exports.deleteBikeComment = async (req, res) => {
+    try {
+      const { id } = req.params;
+      await BikeComment.findByIdAndDelete(id);
+      res.status(200).json({ message: 'Bike comment deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'Error deleting bike comment', error });
+    }
+  };

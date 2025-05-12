@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Star, Clock
 
 const Footer = () => {
   return (
-    <footer className="dark:bg-gray-900 text-white py-10 ">
+    <footer className="dark:bg-[#FBBF24] text-black py-10 ">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/4 px-4 mb-8">
@@ -14,12 +14,11 @@ const Footer = () => {
 
               {/* logo */}
               <a href="/" className="block">
-                <div className="font-[Playfair Display] bg-white rounded-lg p-0 inline-block ">
-                  <h2 className="text-gray-900 font-bold text-3xl">
-                    Classic<span className="text-green-500">Cars</span>
-                  </h2>
-                </div>
-              </a>
+            {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
+            <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28"/>
+            {/* Classic<span className="text-green-500">Cars</span> */}
+            {/* </h2> */}
+        </a>
 
             </div>
 
@@ -27,22 +26,22 @@ const Footer = () => {
 
 
 
-            <p className="font-[Playfair Display] text-gray-300 mb-4">
+            <p className="font-[Playfair Display] text-black-300 mb-4">
               We specialize in buying, selling, and restoring rare classic cars since 1995,
               committed to providing exceptional service and deep expertise in the classic car field.
             </p>
 
             <div className="flex mt-4">
-              <a href="https://www.facebook.com/abodalhop/" className="text-green-300  mr-5">
+              <a href="https://www.facebook.com/abodalhop/" className="text-black hover:text-white  mr-5">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-green-300  mr-5">
+              <a href="#" className="text-black hover:text-white  mr-5">
                 <Instagram size={20} />
               </a>
-              <a href="https://x.com/classic_ca?lang=ar" className="text-green-300 mr-5">
+              <a href="https://x.com/classic_ca?lang=ar" className="text-black hover:text-white mr-5">
                 <Twitter size={20} />
               </a>
-              <a href="https://www.youtube.com/watch?v=fGt2a7UnJ6s" className="text-green-300 ">
+              <a href="https://www.youtube.com/watch?v=fGt2a7UnJ6s" className="text-black hover:text-white ">
                 <Youtube size={20} />
               </a>
             </div>
@@ -58,7 +57,7 @@ const Footer = () => {
                 { name: "Contact Us", link: "/contact" }
               ].map((item, index) => (
                 <li key={index} className="mb-2">
-                  <a href={item.link} className="text-gray-300 hover:text-green-400 transition duration-300">
+                  <a href={item.link} className="text-black-300 hover:text-white transition duration-300">
                     {item.name}
                   </a>
                 </li>
@@ -75,10 +74,10 @@ const Footer = () => {
                 { icon: <Clock size={20} />, title: "24/7 Service", desc: "Complete technical and logistics support" }
               ].map((item, index) => (
                 <li key={index} className="mb-4 flex items-start">
-                  <span className="text-green-400 mt-1 ml-2">{item.icon}</span>
+                  <span className="text-black mt-1 ml-2 ">{item.icon}</span>
                   <div>
                     <p className="font-medium">{item.title}</p>
-                    <span className="text-gray-400 text-sm">{item.desc}</span>
+                    <span className="text-black-400 text-sm">{item.desc}</span>
                   </div>
                 </li>
               ))}
@@ -89,20 +88,20 @@ const Footer = () => {
             <h3 className="font-[Playfair Display] text-xl font-bold mb-4">Contact Us</h3>
             <ul className='font-[Playfair Display]'>
               <li className="flex items-start mb-4">
-                <MapPin size={20} className="text-green-400 mt-1 ml-2" />
-                <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.3895895885753!2d36.08776962490851!3d32.05870992034881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b65cd4d8f17e1%3A0x30e86b8a97e4ac7d!2sOrange%20Digital%20Village%20Zarqa!5e0!3m2!1sar!2sjo!4v1742754671002!5m2!1sar!2sjo" target="_blank" rel="noopener noreferrer" className="text-gray-300">
+                <MapPin size={20} className="text-black-400 mt-1 ml-2" />
+                <a href="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.3895895885753!2d36.08776962490851!3d32.05870992034881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151b65cd4d8f17e1%3A0x30e86b8a97e4ac7d!2sOrange%20Digital%20Village%20Zarqa!5e0!3m2!1sar!2sjo!4v1742754671002!5m2!1sar!2sjo" target="_blank" rel="noopener noreferrer" className="text-black">
                   Online
                 </a>
               </li>
               <li className="flex items-center mb-4">
-                <Phone size={20} className="text-green-400 ml-2" />
-                <a href="tel:+962787491703" className="text-gray-300">
+                <Phone size={20} className="text-black ml-2" />
+                <a href="tel:+962787491703" className="text-black">
                   +962787491703
                 </a>
               </li>
               <li className="flex items-center mb-4">
-                <Mail size={20} className="text-green-400 ml-2" />
-                <a href="mailto:Abdullahbainghanem@gmail.com" className="text-gray-300">
+                <Mail size={20} className="text-black ml-2" />
+                <a href="mailto:Abdullahbainghanem@gmail.com" className="text-black">
                   Abdullahbainghanem@gmail.com
                 </a>
               </li>
@@ -112,7 +111,7 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-green-800 pt-8 mt-8 text-center text-gray-300">
+        <div className="border-t border-green-800 pt-8 mt-8 text-center text-black">
           <p>© {new Date().getFullYear()} Classic Cars Company. All rights reserved.</p>
         </div>
       </div>

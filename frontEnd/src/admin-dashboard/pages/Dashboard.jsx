@@ -93,6 +93,8 @@ const Dashboard = () => {
           </div>
         ) : (
           <>
+
+          
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
               <div className="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-500 transition-all hover:shadow-lg">
@@ -136,6 +138,9 @@ const Dashboard = () => {
               </div>
             </div>
             
+
+
+
             {/* Data Visualization */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-10">
               <h2 className="text-xl font-bold mb-6 text-gray-800 border-b pb-3">Vehicle Status Overview</h2>

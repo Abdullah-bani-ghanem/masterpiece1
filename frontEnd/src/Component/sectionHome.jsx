@@ -27,7 +27,7 @@ const ClassicCarsSection = () => {
       </div>
       <a
         href="/cars"
-        className="mt-6 px-6 py-3 text-white bg-green-500 rounded-lg hover:bg-green-700 transition"
+        className="mt-6 px-6 py-3 text-white dark:bg-[#FBBF24] rounded-lg hover:bg-yellow-600 transition"
       >
         Explore More
       </a>

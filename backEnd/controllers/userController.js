@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 
 exports.register = async (req, res) => {
-  const { name, email, password, phoneNumber, role } = req.body;
+  const { name, email, password, phoneNumber } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: "البريد الإلكتروني مستخدم بالفعل" });
     }
 
-    const newUser = new User({ name, email, password, phoneNumber, role });
+    const newUser = new User({ name, email, password, phoneNumber });
     await newUser.save();
 
     const token = jwt.sign(
@@ -102,7 +102,7 @@ exports.logout = (req, res) => {
 exports.checkAuth = async (req, res) => {
   const token = req.cookies.token;
 
-  if (!token) {
+  if (!token) { 
     return res.status(401).json({ authenticated: false, message: "لم يتم تسجيل الدخول" });
   }
 

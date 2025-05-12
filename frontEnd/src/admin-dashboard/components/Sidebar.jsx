@@ -53,6 +53,36 @@ const Sidebar = () => {
               <span>Cars</span>
             </Link>
           </li>
+
+          <li>
+            <Link
+              to="/admin-dashboard/comment"
+              className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
+            >
+              <MessageSquare size={18} className="text-blue-400" />
+              <span>Cars Comment</span>
+            </Link>
+          </li>
+          
+          
+          <li>
+            <Link
+              to="/admin/AdminBikeDashboard"
+              className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
+            >
+              <Users size={18} className="text-blue-400" />
+              <span>Bike</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin/BikeCommentsAdmin"
+              className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
+            >
+              <Users size={18} className="text-blue-400" />
+              <span>Bike Comments</span>
+            </Link>
+          </li>
           <li>
             <Link
               to="/admin-dashboard/users"
@@ -62,22 +92,14 @@ const Sidebar = () => {
               <span>Users</span>
             </Link>
           </li>
-          <li>
-            <Link
-              to="/admin-dashboard/comment"
-              className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
-            >
-              <MessageSquare size={18} className="text-blue-400" />
-              <span>Comment</span>
-            </Link>
-          </li>
+         
           <li>
             <Link
               to="/admin/contacts"
               className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
             >
               <Users size={18} className="text-blue-400" />
-              <span>Contact management</span>
+              <span>Contact</span>
             </Link>
           </li>
         </ul>

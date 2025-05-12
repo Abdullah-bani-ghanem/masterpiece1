@@ -16,7 +16,8 @@ router.get('/:carId', getComments);
 router.put('/:commentId', protect, isCommentOwner, updateComment);
 
 // مسار حذف تعليق معين (حماية الوصول من خلال التوكن و التحقق من مالك التعليق)
-router.delete('/:commentId', protect, isCommentOwner, deleteComment);
+router.delete('/:commentId', deleteComment);
+// router.delete('/:commentId', protect, isCommentOwner, deleteComment);
 
 // جلب جميع التعليقات
 // router.get('/comments', getComments); 

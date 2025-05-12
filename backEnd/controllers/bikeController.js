@@ -1,50 +1,4 @@
-// // bikeController.js
-// const Bike = require('../models/bikeModel');
 
-// // جلب جميع الدراجات
-// exports.getAllBikes = async (req, res) => {
-//   try {
-//     const bikes = await Bike.find();
-//     res.status(200).json(bikes);
-//   } catch (error) {
-//     res.status(500).json({ message: 'حدث خطأ أثناء جلب الدراجات', error });
-//   }
-// };
-
-// // إضافة دراجة جديدة
-// exports.addBike = async (req, res) => {
-//   try {
-//     const { name, brand, type, price, description, imageUrl } = req.body;
-//     const newBike = new Bike({ name, brand, type, price, description, imageUrl });
-//     await newBike.save();
-//     res.status(201).json({ message: 'تم إضافة الدراجة بنجاح', bike: newBike });
-//   } catch (error) {
-//     res.status(500).json({ message: 'حدث خطأ أثناء إضافة الدراجة', error });
-//   }
-// };
-
-// // حذف دراجة
-// exports.deleteBike = async (req, res) => {
-//   try {
-//     const bikeId = req.params.id;
-//     await Bike.findByIdAndDelete(bikeId);
-//     res.status(200).json({ message: 'تم حذف الدراجة بنجاح' });
-//   } catch (error) {
-//     res.status(500).json({ message: 'حدث خطأ أثناء الحذف', error });
-//   }
-// };
-
-// // تحديث بيانات الدراجة
-// exports.updateBike = async (req, res) => {
-//   try {
-//     const bikeId = req.params.id;
-//     const updatedData = req.body;
-//     const updatedBike = await Bike.findByIdAndUpdate(bikeId, updatedData, { new: true });
-//     res.status(200).json({ message: 'تم تحديث الدراجة بنجاح', bike: updatedBike });
-//   } catch (error) {
-//     res.status(500).json({ message: 'حدث خطأ أثناء تحديث الدراجة', error });
-//   }
-// };
 const Bike = require('../models/bikeModel');
 
 // جلب جميع الدراجات
@@ -57,36 +11,7 @@ exports.getAllBikes = async (req, res) => {
   }
 };
 
-// إضافة دراجة جديدة
-// exports.addBike = async (req, res) => {
-//   try {
-//     const { name, brand, type, price, description, imageUrl, model, year, condition } = req.body;
-
-//     // التأكد من إرسال جميع البيانات المطلوبة
-//     if (!name || !brand || !type || !price || !model || !year || !condition) {
-//       return res.status(400).json({ message: 'يرجى ملء جميع الحقول المطلوبة' });
-//     }
-
-//     // إنشاء الدراجة الجديدة باستخدام البيانات
-//     const newBike = new Bike({
-//       name,
-//       brand,
-//       type,
-//       price,
-//       description,
-//       imageUrl,
-//       model,
-//       year,
-//       condition,
-//     });
-
-//     // حفظ الدراجة في قاعدة البيانات
-//     await newBike.save();
-//     res.status(201).json({ message: 'تم إضافة الدراجة بنجاح', bike: newBike }); // إرجاع الدراجة المضافة
-//   } catch (error) {
-//     res.status(500).json({ message: 'حدث خطأ أثناء إضافة الدراجة', error }); // إذا حدث خطأ
-//   }
-// };
+ 
 
 
 exports.addBike = async (req, res) => {
@@ -122,6 +47,8 @@ exports.addBike = async (req, res) => {
 };
 
 
+
+
 // حذف دراجة بواسطة ID
 exports.deleteBike = async (req, res) => {
   try {
@@ -132,6 +59,9 @@ exports.deleteBike = async (req, res) => {
     res.status(500).json({ message: 'حدث خطأ أثناء الحذف', error }); // إذا حدث خطأ
   }
 };
+
+
+
 
 // تحديث بيانات الدراجة بواسطة ID
 exports.updateBike = async (req, res) => {
@@ -157,6 +87,9 @@ exports.updateBike = async (req, res) => {
   }
 };
 
+
+
+
 // جلب الدراجة بواسطة ID
 exports.getBikeById = async (req, res) => {
   try {
@@ -173,6 +106,9 @@ exports.getBikeById = async (req, res) => {
   }
 };
 
+
+
+
 // جلب الدراجات المعتمدة فقط
 exports.getApprovedBikes = async (req, res) => {
   try {
@@ -183,15 +119,22 @@ exports.getApprovedBikes = async (req, res) => {
   }
 };
 
+
+
+
 // جلب الدراجات المعلقة فقط
 exports.getPendingBikes = async (req, res) => {
   try {
-    const bikes = await Bike.find({ status: 'pending' }); // جلب الدراجات المعلقة فقط
-    res.status(200).json(bikes); // إرجاع الدراجات المعلقة
+    // جلب الدراجات التي حالتها معلقة أو مرفوضة
+    const bikes = await Bike.find({ status: { $in: ['pending', 'rejected'] } });
+    res.status(200).json(bikes); // إرجاع البيانات
   } catch (error) {
-    res.status(500).json({ message: 'حدث خطأ أثناء جلب الدراجات المعلقة', error }); // إذا حدث خطأ
+    res.status(500).json({ message: 'حدث خطأ أثناء جلب الدراجات', error });
   }
 };
+
+
+
 
 // الموافقة أو الرفض للدراجة
 exports.approveOrRejectBike = async (req, res) => {
@@ -222,5 +165,57 @@ exports.getApprovedBikeCount = async (req, res) => {
     res.status(200).json({ count }); // إرجاع العدد
   } catch (error) {
     res.status(500).json({ message: 'حدث خطأ أثناء حساب عدد الدراجات المعتمدة', error });
+  }
+};
+
+
+
+// جلب الدراجات المعلقة
+exports.getPendingBikes = async (req, res) => {
+  try {
+    const bikes = await Bike.find({ status: 'pending' });
+    res.status(200).json(bikes);
+  } catch (error) {
+    res.status(500).json({ message: 'حدث خطأ أثناء جلب الدراجات المعلقة', error });
+  }
+};
+
+
+
+
+
+
+// الموافقة أو الرفض على الدراجة
+exports.approveOrRejectBike = async (req, res) => {
+  try {
+    const bikeId = req.params.id;
+    const { status } = req.body;
+
+    if (status !== 'approved' && status !== 'rejected') {
+      return res.status(400).json({ message: 'الحالة يجب أن تكون approved أو rejected' });
+    }
+
+    const updatedBike = await Bike.findByIdAndUpdate(bikeId, { status }, { new: true });
+
+    if (!updatedBike) {
+      return res.status(404).json({ message: 'الدراجة غير موجودة' });
+    }
+
+    res.status(200).json({ message: 'تم تحديث حالة الدراجة بنجاح', bike: updatedBike });
+  } catch (error) {
+    res.status(500).json({ message: 'حدث خطأ أثناء الموافقة أو الرفض', error });
+  }
+};
+
+
+
+
+// عدد الدراجات المعتمدة
+exports.getApprovedBikeCount = async (req, res) => {
+  try {
+    const count = await Bike.countDocuments({ status: 'approved' });
+    res.status(200).json({ count });
+  } catch (error) {
+    res.status(500).json({ message: 'حدث خطأ أثناء الحساب', error });
   }
 };

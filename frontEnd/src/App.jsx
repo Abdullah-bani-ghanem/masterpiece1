@@ -33,6 +33,10 @@ import Messages from "../src/admin-dashboard/pages/Messages";
 import Comment from "../src/admin-dashboard/pages/Comment";
 import ContactsManagement from '../src/admin-dashboard/pages/ContactsManagement';
 import BikeDetails from '../src/Pages/Bike/BikeDetails';
+import BikeAdmin from '../src/admin-dashboard/pages/Baike/AdminBikeDashboard';
+import BikeDetailsAdminPage from '../src/admin-dashboard/pages/Baike/BikeDetailsAdminPage';
+import BikeCommentsAdmin from '../src/admin-dashboard/pages/Baike/BikeCommentsAdmin';
+
 
 
 
@@ -81,6 +85,9 @@ function App() {
           <Route path="/admin-dashboard/messages" element={<AdminLayout><Messages /></AdminLayout>}/>
           <Route path="/admin-dashboard/comment" element={<AdminLayout><Comment /></AdminLayout>}/>
           <Route path="/admin/contacts" element={<AdminLayout><ContactsManagement /></AdminLayout>}/>
+          <Route path="/admin/AdminBikeDashboard" element={<AdminLayout><BikeAdmin /></AdminLayout>}/>
+          <Route path="/admin/BikeDetailsAdminPage/:id" element={<AdminLayout><BikeDetailsAdminPage /></AdminLayout>}/>
+          <Route path="/admin/BikeCommentsAdmin" element={<AdminLayout><BikeCommentsAdmin /></AdminLayout>}/>
           {/* <Route path="/admin/contacts" element={<ContactsManagement />} /> */}
 
        

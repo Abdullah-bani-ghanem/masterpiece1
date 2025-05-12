@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../context/AuthContext';
 
 
 function Navbar() {
@@ -10,9 +11,10 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userName, setUserName] = useState('');
   const [userProfilePicture, setUserProfilePicture] = useState("");
+  const [userRole, setUserRole] = useState('');
   const [isSticky, setIsSticky] = useState(false);
   //منع اليوزر من الداش بورد
-  const [userRole, setUserRole] = useState('');
+  const { user } = useContext(AuthContext);
 
 
   //منع اليوزر من الداش بورد
@@ -39,23 +41,32 @@ function Navbar() {
 
 
   // خاص بصوره البروفايل جنب هلو يوزر
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/api/users/check-auth", {
-          withCredentials: true,
-        });
-        const user = response.data.user;
-        setUserName(user.name);
-        setUserProfilePicture(user.profilePicture);
-        setIsAuthenticated(true);
-      } catch (err) {
-        setIsAuthenticated(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await axios.get("http://localhost:5000/api/users/check-auth", {
+  //         withCredentials: true,
+  //       });
+  //       const user = response.data.user;
+  //       setUserName(user.name);
+  //       setUserProfilePicture(user.profilePicture);
+  //       setIsAuthenticated(true);
+  //     } catch (err) {
+  //       setIsAuthenticated(false);
+  //     }
+  //   };
 
-    fetchUser();
-  }, []);
+  //   fetchUser();
+  // }, []);
+
+  {
+    user && (
+      <div className="flex items-center space-x-3">
+        <span>Hello, {user.name}</span>
+        <img src={user.profilePicture} className="w-8 h-8 rounded-full" />
+      </div>
+    )
+  }
 
 
   // Check authentication status when page loads
@@ -137,17 +148,16 @@ function Navbar() {
   };
 
   return (
-    <nav className={`bg-white border-gray-200 dark:bg-gray-900 shadow-md ${isSticky ? 'fixed top-0 left-0 right-0 z-50 transition-transform duration-300' : ''}`}>
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className={`bg-white border-gray-200 dark:bg-[#FBBF24] shadow-md ${isSticky ? 'fixed top-0 left-0 right-0 z-50 transition-transform duration-300' : ''}`}>
+      <div className="flex flex-wrap items-center justify-between mx-auto p-4">
 
 
         {/* logo */}
         <a href="/" className="block">
-          <div className="font-[Playfair Display] bg-white rounded-lg p-0 inline-block  ">
-            <h2 className="text-gray-900 font-bold text-3xl ">
-              Classic<span className="text-green-500">Cars</span>
-            </h2>
-          </div>
+            {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
+            <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28"/>
+            {/* Classic<span className="text-green-500">Cars</span> */}
+            {/* </h2> */}
         </a>
 
 
@@ -164,7 +174,7 @@ function Navbar() {
         <div className="flex md:order-3">
           {isAuthenticated ? (
             <button
-              className="font-[Playfair Display] text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-300"
+              className="font-[Playfair Display] text-white bg-black hover:bg-black focus:ring-2 focus:ring-[#2d2d2e7d] font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-300"
               onClick={handleLogout}
             >
               Logout
@@ -173,13 +183,13 @@ function Navbar() {
             <div className="flex space-x-3">
               <Link
                 to="/login"
-                className="font-[Playfair Display] text-green-600 hover:text-white border border-green-600 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors duration-300"
+                className="font-[Playfair Display] text-black hover:text-white border border-black hover:bg-black focus:ring-2 focus:ring-[#2d2d2e7d] font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors duration-300"
               >
                 Login
               </Link>
               <Link
                 to="/register"
-                className="font-[Playfair Display] text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors duration-300"
+                className="font-[Playfair Display] text-white bg-black hover:bg-black focus:ring-2 focus:ring-[#2d2d2e7d] font-medium rounded-lg text-sm px-4 py-2 text-center transition-colors duration-300"
               >
                 Register
               </Link>
@@ -226,130 +236,106 @@ function Navbar() {
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
           id="navbar-language"
         >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-
-
-
-
-            <li>
-              <Link
-                to="/"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-                aria-current="page"
-              >
-                Home
-              </Link>
-            </li>
-
-
-
-
-
-            <li>
-              <Link
-                to="/cars"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                Cars
-              </Link>
-            </li>
-
-
-            <li>
-              <Link
-                to="/bikes"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                Bikes
-              </Link>
-            </li>
-
-            {/* <li>
-              <Link
-                to="/userProfile"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                UserProfile
-              </Link>
-            </li> */}
-
-
-
-
-
-            <li>
-              <Link
-                to="/payment"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                payment
-              </Link>
-            </li>
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border  rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
 
 
 
 
 
 
-            {/* <li>
-              <Link
-                to="/form"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                form
-              </Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0  transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/cars"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0  transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              Cars
+            </NavLink>
 
-            </li> */}
+            <NavLink
+              to="/bikes"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0  transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              Bikes
+            </NavLink>
 
-
-
-
+            <NavLink
+              to="/payment"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              payment
+            </NavLink>
 
             {userRole === 'admin' && (
-              <li>
-                <Link
-                  to="/admin-dashboard"
-                  className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-                >
-                  dashboard
-                </Link>
-              </li>
+
+              <NavLink
+                to="/admin-dashboard"
+                className={({ isActive }) =>
+                  `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 transition-colors duration-300
+    ${isActive
+                    ? 'border-b-2 border-white text-white' // active link
+                    : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                  }`
+                }
+              >
+                dashboard
+              </NavLink>
             )}
 
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              Contact
 
+            </NavLink>
 
-
-            <li>
-              <Link
-                to="/contact"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                Contact
-              </Link>
-            </li>
-
-
-
-
-
-            <li>
-              <Link
-                to="/about"
-                className="font-[Playfair Display] block py-2 px-3 text-2xl md:p-0 text-gray-900 rounded-lg hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-600 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 transition-colors duration-300"
-              >
-                About
-              </Link>
-            </li>
-
-
-
-
-
-            
-
-
-           
-
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `font-[Playfair Display] block py-2 px-3 text-2xl md:p-0  transition-colors duration-300
+    ${isActive
+                  ? 'border-b-2 border-white text-white' // active link
+                  : 'text-gray-900 hover:bg-white md:hover:bg-transparent md:hover:text-white dark:hover:text-white'
+                }`
+              }
+            >
+              About
+            </NavLink>
 
 
           </ul>
@@ -361,7 +347,7 @@ function Navbar() {
               <div className="flex items-center space-x-3">
 
                 {/* رابط حول صورة البروفايل */}
-                <span className="font-[Playfair Display] text-gray-700 dark:text-gray-300">
+                <span className="font-[Playfair Display] text-gray-900 ">
                   Hello, <span className="font-[Playfair Display]">{userName}</span>
                 </span>
                 <a href="/userprofile">
@@ -374,7 +360,7 @@ function Navbar() {
                     />
                   ) : (
                     // ❌ إذا ما فيه صورة، نعرض أول حرف من الاسم
-                    <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-semibold hover:opacity-80 transition">
+                    <div className="w-8 h-8 rounded-full bg-yellow-600 flex items-center justify-center text-white font-semibold hover:opacity-80 transition">
                       {userName.charAt(0).toUpperCase()}
                     </div>
                   )}

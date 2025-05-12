@@ -1,3 +1,4 @@
+abdullah
 trello: https://trello.com/b/K9pmxfCg/classic
 
 figma: https://www.figma.com/design/xDSHaKJIL6SgpoFlp2eWW9/Untitled?node-id=0-1&p=f&t=F8FR58EdctfTa0df-0

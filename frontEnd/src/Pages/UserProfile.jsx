@@ -853,7 +853,7 @@ const UserProfile = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 border border-gray-600 rounded-md bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
-                    required
+                    readOnly
                   />
                 </div>
                 <div className="col-span-2 md:col-span-1">

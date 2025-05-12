@@ -171,12 +171,12 @@ function Cars() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white relative">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative">
       {/* Header Section with Improved Hero */}
       <div className="bg-black bg-opacity-70 py-12 px-4 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('../img/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
         <div className="max-w-7xl mx-auto relative z-10">
-          <h1 className="font-[Playfair Display] text-5xl font-bold mb-6 tracking-wide text-center bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-green-500">
+          <h1 className="font-[Playfair Display] text-5xl font-bold mb-6 tracking-wide text-center bg-clip-text text-transparent bg-gradient-to-r dark:bg-[#FBBF24]">
             Classic Cars Collection
           </h1>
           <p className="font-[Playfair Display] text-2xl text-center max-w-3xl mx-auto mb-8 text-gray-100 font-light">
@@ -188,30 +188,30 @@ function Cars() {
             <input
               type="text"
               placeholder="Search by make, model, year, color, engine type..."
-              className="w-full py-3 px-6 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-green-500 text-white"
+              className="w-full py-3 px-6 rounded-full   focus:outline-none focus:ring-2 dark:bg-[#FBBF24] text-white"
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            <button type="submit" className="absolute right-3 top-3 text-green-500">
+            <button type="submit" className="absolute right-3 top-3 ">
               <FaSearch size={20} />
             </button>
           </form>
 
           {/* Filter Toggle Button */}
-          <div className="font-[Playfair Display] flex justify-center mt-4">
+          {/* <div className="font-[Playfair Display] flex justify-center mt-4">
             <button
               onClick={toggleFilterPanel}
-              className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors"
+              className="flex items-center space-x-2 text-[#FBBF24] rounded-lg hover:text-yellow-600 transition-colors"
             >
               <FaFilter />
               <span>{filterOpen ? 'Hide Filters' : 'Show Filters'}</span>
             </button>
-          </div>
+          </div> */}
 
           {/* Expanded Filter Panel */}
-          {filterOpen && (
+          {/* {filterOpen && (
             <div className="mt-6 p-6 bg-gray-800 rounded-lg border border-gray-700 max-w-2xl mx-auto">
-              <h3 className="font-[Playfair Display] text-lg font-semibold mb-4 text-green-400">Refine Your Search</h3>
+              <h3 className="font-[Playfair Display] text-lg font-semibold mb-4 text-[#FBBF24]">Refine Your Search</h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -283,20 +283,20 @@ function Cars() {
                 </button>
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Quick Stats */}
           <div className="flex justify-center mt-8 space-x-8">
             <div className="text-center">
-              <p className="font-[Playfair Display] text-3xl font-bold text-green-400">25+</p>
+              <p className="font-[Playfair Display] text-3xl font-bold text-[#FBBF24]">25+</p>
               <p className="font-[Playfair Display] text-gray-300">Unique Models</p>
             </div>
             <div className="text-center">
-              <p className="font-[Playfair Display] text-3xl font-bold text-green-400">100%</p>
+              <p className="font-[Playfair Display] text-3xl font-bold text-[#FBBF24]">100%</p>
               <p className="font-[Playfair Display] text-gray-300">Verified History</p>
             </div>
             <div className="text-center">
-              <p className="font-[Playfair Display] text-3xl font-bold text-green-400">30-Day</p>
+              <p className="font-[Playfair Display] text-3xl font-bold text-[#FBBF24]">30-Day</p>
               <p className="font-[Playfair Display] text-gray-300">Guarantee</p>
             </div>
           </div>
@@ -307,12 +307,12 @@ function Cars() {
         {/* Results Section Header - MODIFIED WITH ADD CAR BUTTON */}
         <div className="mb-8 flex flex-col md:flex-row justify-between items-center">
           <div className="w-full">
-            <p className="font-[Playfair Display] text-5xl text-green-400 font-semibold text-center">
+            <p className="font-[Playfair Display] text-5xl text-[#FBBF24] font-semibold text-center ml-55">
               Available Classic Cars
             </p>
             {/* Search results count */}
             {!loading && (
-              <p className="font-[Playfair Display] text-center text-gray-300 mt-2">
+              <p className="font-[Playfair Display] text-center text-gray-300 mt-2 ml-55">
                 {searchResults.length === 0 ?
                   "No cars match your search" :
                   `Showing ${searchResults.length} ${searchResults.length === 1 ? 'car' : 'cars'}`
@@ -324,7 +324,7 @@ function Cars() {
           
           {/* Add Car For Sale Button */}
           <Link to="/form" className="mt-4 md:mt-0">
-            <button className="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg transition-colors duration-300 font-medium flex items-center">
+            <button className="dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-3 px-6 rounded-lg transition-colors duration-300 font-medium flex items-center">
               <span className="mr-2">Add a car for sale</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
@@ -336,7 +336,7 @@ function Cars() {
         {/* Loading State */}
         {loading || isSearching ? (
           <div className="font-[Playfair Display] flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-green-500"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 dark:bg-[#FBBF24]"></div>
           </div>
         ) : searchResults.length === 0 ? (
           // No results found
@@ -347,7 +347,7 @@ function Cars() {
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg transition-colors"
+                className="mt-4 dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-2 px-6 rounded-lg transition-colors"
               >
                 Clear Search
               </button>
@@ -355,24 +355,24 @@ function Cars() {
           </div>
         ) : (
           /* Cars Grid with Improved Card Design */
-          <div className="font-[Playfair Display] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="font-[Playfair Display] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 ">
             {searchResults.map((car,index) => (
 
-              <div key={index} className="bg-gray-800 rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg border border-gray-700 group">
+              <div key={index} className=" rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg border border-gray-700 group mb-3">
                 <div className="relative">
                   <img
                     src={`http://localhost:5000/uploads/${car.images[0]}`}
                     alt={car.name}
                     className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute top-0 right-0 bg-green-600 text-white px-4 py-2 rounded-bl-lg font-bold text-lg shadow-md">
+                  <div className="absolute top-0 right-0 bg-[#FBBF24] text-white px-4 py-2 rounded-bl-lg font-bold text-lg shadow-md">
                     ${car.price}
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 h-16"></div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2 text-green-400">{car.name}</h3>
+                  <h3 className="text-2xl font-bold mb-2 text-[#FBBF24]">{car.name}</h3>
                   <div className="flex items-center justify-between mb-3">
                     <span className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">Year: {car.year}</span>
                     <span className="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">{car.model}</span>
@@ -386,7 +386,7 @@ function Cars() {
                       <span className="text-sm text-gray-400">Available</span>
                     </div>
                     <Link to={`/car-details/${car._id}`}>
-                      <button className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-colors duration-300 font-medium">
+                      <button className="dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-colors duration-300 font-medium">
                         View Details
                       </button>
                     </Link>
@@ -398,8 +398,8 @@ function Cars() {
         )}
       </div>
 
-      {/* WhatsApp Button */}
-      <a
+        {/* WhatsApp Button */}
+        <a
         href="https://wa.me/+962787491703"
         target="_blank"
         rel="noopener noreferrer"
@@ -414,19 +414,19 @@ function Cars() {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 bg-gray-700 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-40"
+          className="fixed bottom-6 right-6 bg-gray-700 text-white p-4 rounded-full shadow-lg  hover:bg-yellow-600 transition duration-300 z-40"
         >
           <FaArrowUp size={20} />
         </button>
       )}
 
       {/* Chatbot Button */}
-      <button
+      {/* <button
         onClick={() => setShowChatbot(!showChatbot)}
         className="fixed bottom-24 left-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 z-40"
       >
         {showChatbot ? <FaTimes size={24} /> : <FaComments size={24} />}
-      </button>
+      </button> */}
 
       {/* Chatbot Panel */}
       {showChatbot && (

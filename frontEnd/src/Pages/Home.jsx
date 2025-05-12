@@ -17,6 +17,8 @@ function Home() {
   ]);
   const [userCount, setUserCount] = useState(0);
   const [approvedCarCount, setApprovedCarCount] = useState(0);
+  const [approvedBikeCount, setApprovedBikeCount] = useState(0);
+
 
   const chatEndRef = useRef(null);
 
@@ -81,6 +83,27 @@ function Home() {
 
 
   useEffect(() => {
+    const fetchApprovedBikeCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error("No token found!");
+          return;
+        }
+
+        const res = await axios.get("/api/bikes/approved-bikes", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setApprovedBikeCount(res.data.length); // نحسب الطول مباشرة لأن الـ API بترجع فقط الدراجات المعتمدة
+      } catch (err) {
+        console.error('Error fetching approved bike count:', err);
+      }
+    };
+
+
+
+
     // جلب عدد المستخدمين المسجلين
     const fetchUserCount = async () => {
       try {
@@ -89,12 +112,12 @@ function Home() {
           console.error("No token found!");
           return;
         }
-        
+
         const res = await axios.get("/api/counter/user-count", {
           headers: { Authorization: `Bearer ${token}` },
-      });
+        });
 
-     
+
         // عرض النتيجة في الكونسول
         setUserCount(res.data.length); // تعيين عدد المستخدمين في ال state
       } catch (err) {
@@ -111,12 +134,12 @@ function Home() {
           console.error("No token found!");
           return;
         }
-      
+
         const res = await axios.get("/api/counter/approved-car-count", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        
-        const cars=res.data;
+
+        const cars = res.data;
         const approved = cars.filter(c => c.status === "approved");
         setApprovedCarCount(approved.length); // تعيين عدد السيارات المعتمدة في ال state
       } catch (err) {
@@ -126,6 +149,8 @@ function Home() {
 
     fetchUserCount(); // جلب عدد المستخدمين
     fetchApprovedCarCount(); // جلب عدد السيارات المعتمدة
+    fetchApprovedBikeCount();
+
   }, []); // فقط عند تحميل الصفحة
 
 
@@ -188,16 +213,17 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900">
+    // <div className="bg-gray-50 dark:bg-gray-900">
+    <div className="bg-gray-50 dark:bg-[#2d2d2e]">
       {/* Hero Section with Enhanced CTA */}
       <div className="relative h-screen">
         <div className="absolute inset-0 z-10"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-center w-full max-w-4xl px-4">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center w-full max-w-4xl px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-[Playfair Display] text-white font-cursive text-6xl md:text-7xl lg:text-8xl font-bold mb-6"
+            className="font-[Playfair Display] text-[#FBBF24]  font-cursive  md:text-7xl lg:text-6xl  mb-50"
           >
             Driven By Drivers
           </motion.h1>
@@ -205,47 +231,71 @@ function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-[Playfair Display] text-white text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
+            className="font-[Playfair Display] text-[#FBBF24] text-xl md:text-2xl mb-8 max-w-2xl mx-auto"
           >
             Experience the golden age of automotive excellence with our curated collection of timeless classics
           </motion.p>
 
         </div>
-        <img className="h-screen w-full object-cover" src={heroCar} alt="Classic Car Hero" />
+        {/* <img className="h-screen w-full object-cover" src={heroCar} alt="Classic Car Hero" /> */}
+        <>
+          {/* forked from: https://codepen.io/cuonoj/pen/JjPmMaB */}
+          <section className="relative h-screen flex flex-col items-center justify-center text-center text-white ">
+            <div className="video-docker absolute top-0 left-0 w-full h-[39rem] overflow-hidden">
+              <video
+                className="min-w-full min-h-full absolute object-cover "
+                src="/classicCar.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+
+            </div>
+
+          </section>
+          <style
+            dangerouslySetInnerHTML={{
+              __html:
+                '\n    .video-docker video {\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n    }\n\n    .video-docker::after {\n        content: "";\n        position: absolute;\n        width: 100%;\n        height: 100%;\n        top: 0;\n        left: 0;\n        background: rgba(0, 0, 0, 0.6);\n        z-index: 1;\n    }\n'
+            }}
+          />
+        </>
+
       </div>
 
 
 
       {/* Welcome Section with Animation */}
       <div className="p-8">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-        className="text-center py-16 px-4 max-w-4xl mx-auto"
-      >
-        <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 dark:text-white">Welcome to Classic</h2>
-        <p className="font-[Playfair Display] text-xl font-cursive dark:text-gray-300 mb-6 leading-relaxed">
-          "Are you a fan of classic cars? Here at Classic, we offer a curated selection of original classic cars that combine luxury and history. Browse our collection of unique vehicles and enjoy an exceptional buying experience. Every car has a story, discover the story that sets you apart." 🚗✨
-        </p>
-        <div className="flex justify-center gap-8 mt-10">
-          <div className="text-center">
-            <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">{userCount}+</div>
-            <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Happy Clients</div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+          className="text-center  px-4 max-w-4xl mx-auto"
+        >
+          <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 dark:text-white">Welcome to Classic</h2>
+          <p className="font-[Playfair Display] text-xl font-cursive dark:text-gray-300 mb-6 leading-relaxed">
+            "Are you a fan of classic cars? Here at Classic, we offer a curated selection of original classic cars that combine luxury and history. Browse our collection of unique vehicles and enjoy an exceptional buying experience. Every car has a story, discover the story that sets you apart." 🚗✨
+          </p>
+          <div className="flex justify-center gap-8 mt-10">
+            <div className="text-center">
+              <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">{userCount}+</div>
+              <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Happy Clients</div>
+            </div>
+            <div className="text-center">
+              <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">{approvedCarCount}+</div>
+              <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Classic Cars</div>
+            </div>
+            <div className="text-center">
+              <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">{approvedBikeCount}+</div>
+              <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Classic Bikes</div>
+            </div>
           </div>
-          <div className="text-center">
-            <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">{approvedCarCount}+</div>
-            <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Classic Cars</div>
-          </div>
-          <div className="text-center">
-            <div className="font-[Playfair Display] text-green-600 text-5xl font-bold mb-2">250+</div>
-            <div className="font-[Playfair Display] text-gray-600 dark:text-gray-400">Happy Clients</div>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  
+        </motion.div>
+      </div>
+
 
 
       {/* Original Slider Component */}
@@ -259,7 +309,7 @@ function Home() {
           <h2 className="font-[Playfair Display] text-5xl font-bold dark:text-white text-center">
             Featured Listings
           </h2>
-          
+
         </div>
 
 
@@ -272,20 +322,20 @@ function Home() {
             >
               <div className="relative">
                 <img src={car.image} alt={car.name} className="w-full h-64 object-cover" />
-                <div className="font-[Playfair Display] absolute top-3 right-3 bg-green-700 text-white py-1 px-3 rounded-full text-sm font-semibold">
+                <div className="font-[Playfair Display] absolute top-3 right-3 dark:bg-[#FBBF24] text-white py-1 px-3 rounded-full text-sm font-semibold">
                   Featured
                 </div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold mb-2 dark:text-white">{car.name}</h3>
-                <p className="text-2xl text-green-600 font-bold mb-4">{car.price}</p>
+                <p className="text-2xl text-[#FBBF24] font-bold mb-4">{car.price}</p>
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div className="flex items-center text-gray-600 dark:text-gray-300">
                     <Calendar size={18} className="mr-2" />
                     <span>{car.year}</span>
                   </div>
                 </div>
-                <a href={`/vehicles/${car.id}`} className="font-[Playfair Display] block w-full bg-green-700 hover:bg-green-800 text-white text-center py-3 rounded-lg font-semibold transition">
+                <a href={`/vehicles/${car.id}`} className="font-[Playfair Display] block w-full dark:bg-[#FBBF24] hover:bg-yellow-600 text-white text-center py-3 rounded-lg font-semibold transition">
                   View Details
                 </a>
               </div>
@@ -296,9 +346,14 @@ function Home() {
 
 
 
+        {/* Original ClassicCarsSection Component */}
+        <ClassicCarsSection />
+
+
+
 
       {/* Services Section */}
-      <div className="py-16 bg-gray-100 dark:bg-gray-800">
+      <div className="py-16 ">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-[Playfair Display] text-5xl font-bold text-center mb-12 dark:text-white">Our Specialized Services</h2>
 
@@ -324,7 +379,7 @@ function Home() {
 
 
       {/* Testimonials Section */}
-      <div className="py-16 bg-white dark:bg-gray-900">
+      <div className="py-16 bg-white dark:bg-gray-700">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="font-[Playfair Display] text-5xl font-bold text-center mb-12 dark:text-white">What Our Clients Say</h2>
 
@@ -394,8 +449,7 @@ function Home() {
 
 
 
-      {/* Original ClassicCarsSection Component */}
-      <ClassicCarsSection />
+    
 
 
 
@@ -404,7 +458,7 @@ function Home() {
 
 
       {/* Newsletter Section */}
-      <div className="bg-green-800 py-16">
+      {/* <div className="bg-green-800 py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="font-[Playfair Display] text-3xl font-bold text-white mb-4">Stay Updated</h2>
           <p className="font-[Playfair Display] text-white/90 mb-8 text-lg">Subscribe to our newsletter for exclusive updates on new inventory, special events, and classic car insights.</p>
@@ -419,17 +473,15 @@ function Home() {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
 
 
 
 
-
-
-      {/* WhatsApp Button */}
-      <a
+     {/* WhatsApp Button */}
+        <a
         href="https://wa.me/+962787491703"
         target="_blank"
         rel="noopener noreferrer"
@@ -440,15 +492,11 @@ function Home() {
         </svg>
       </a>
 
-
-
-
-
       {/* Back to Top Button */}
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 bg-gray-700 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition duration-300 z-40"
+          className="fixed bottom-6 right-6 bg-gray-700 text-white p-4 rounded-full shadow-lg  hover:bg-yellow-600 transition duration-300 z-40"
         >
           <FaArrowUp size={20} />
         </button>
@@ -460,12 +508,12 @@ function Home() {
 
 
       {/* Chatbot Button */}
-      <button
+      {/* <button
         onClick={() => setShowChatbot(!showChatbot)}
-        className="fixed bottom-24 left-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 z-40"
+        className="fixed bottom-24 left-6 bg-[#FBBF24] text-white p-4 rounded-full shadow-lg hover:bg-[#2d2d2e] transition duration-300 z-40"
       >
         {showChatbot ? <FaTimes size={24} /> : <FaComments size={24} />}
-      </button>
+      </button> */}
 
 
 
@@ -474,7 +522,7 @@ function Home() {
 
 
       {/* Chatbot Panel */}
-      {showChatbot && (
+      {/* {showChatbot && (
         <div className="fixed bottom-40 left-6 w-80 bg-gray-800 rounded-lg shadow-xl overflow-hidden z-40 animate-slide-up">
           <div className="bg-green-600 p-4">
             <h3 className="font-bold">Classic Car Concierge</h3>
@@ -515,8 +563,8 @@ function Home() {
               Send
             </button>
           </form>
-        </div>
-      )}
+        </div> */}
+      
     </div>
   );
 }
