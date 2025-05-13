@@ -35,6 +35,7 @@ const bikeSchema = new mongoose.Schema({
   adminNote: { type: String }, // ملاحظات المسؤول
   createdAt: { type: Date, default: Date.now }, // تاريخ الإنشاء
   updatedAt: { type: Date, default: Date.now }, // تاريخ آخر تحديث
+  
 });
 
 // تحديث الحقل updatedAt عند حفظ الدراجة

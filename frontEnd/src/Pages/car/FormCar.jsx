@@ -89,7 +89,7 @@ const CarInfoForm = () => {
         <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 py-12 px-4">
             <div className="max-w-4xl mx-auto">
                 {/* Header Banner */}
-                <div className="relative bg-green-400 rounded-t-2xl mb-0 p-8 text-center text-white shadow-lg overflow-hidden">
+                <div className="relative bg-[#FBBF24] rounded-t-2xl mb-0 p-8 text-center text-white shadow-lg overflow-hidden">
                     <div className="absolute inset-0 bg-black opacity-50"></div>
                     <div className="relative z-10">
                         <h1 className="font-[Playfair Display] text-4xl font-bold mb-3">Car Information Form</h1>
@@ -375,7 +375,7 @@ const CarInfoForm = () => {
                         <div className="pt-4">
                             <button
                                 type="submit"
-                                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center"
+                                className="w-full bg-[#FBBF24] hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 flex items-center justify-center"
                             >
                                 <span>Submit Car Information</span>
                             </button>

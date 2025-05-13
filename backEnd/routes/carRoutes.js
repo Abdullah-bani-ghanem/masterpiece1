@@ -18,6 +18,8 @@ router.post("/add", protect, carController.addCar);
 
 router.post("/addByAdmin", protect,isAdmin, carController.addCarByAdmin);
 
+// بجيب اول 3 سيارات للهوم
+router.get('/latest-approved', carController.getLatestApprovedCars);
 
 
 // فقط الأدمن يشوف السيارات المعلقة

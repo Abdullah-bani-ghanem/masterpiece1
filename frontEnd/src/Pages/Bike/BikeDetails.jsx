@@ -455,6 +455,19 @@ const BikeDetails = () => {
                             </div>
                         </div>
 
+                         {/* Description Section */}
+                         {bike.description && (
+                            <div className="mb-12">
+                                <h2 className="text-2xl font-serif text-[#FBBF24] mb-6 flex items-center">
+                                    <span className="inline-block w-8 h-px bg-[#FBBF24] mr-3"></span>
+                                    Vehicle Description
+                                </h2>
+                                <div className="dark:bg-[#2d2d2e] bg-opacity-50 rounded-lg p-6 border border-gray-700">
+                                    <p className="text-gray-300 leading-relaxed">{bike.description}</p>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Comments Section */}
                         <div className="mb-12">
                             <h2 className="text-2xl font-serif text-[#FBBF24] mb-6 flex items-center">

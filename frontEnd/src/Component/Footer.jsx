@@ -53,8 +53,9 @@ const Footer = () => {
               {[
                 { name: "Home", link: "/" },
                 { name: "Cars", link: "/cars" },
+                { name: "Bikes", link: "/bikes" },
+                { name: "Contact Us", link: "/contact" },
                 { name: "About Us", link: "/about" },
-                { name: "Contact Us", link: "/contact" }
               ].map((item, index) => (
                 <li key={index} className="mb-2">
                   <a href={item.link} className="text-black-300 hover:text-white transition duration-300">

@@ -5,14 +5,13 @@ const jwt = require("jsonwebtoken");
 
 
 
-
 exports.register = async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "البريد الإلكتروني مستخدم بالفعل" });
+      return res.status(400).json({ message: "Email is already in use" });
     }
 
     const newUser = new User({ name, email, password, phoneNumber });
@@ -31,9 +30,9 @@ exports.register = async (req, res) => {
       maxAge: 3600000,
     });
 
-    res.status(201).json({ message: "تم التسجيل بنجاح" });
+    res.status(201).json({ message: "Registration successful" });
   } catch (error) {
-    res.status(500).json({ message: "خطأ في التسجيل", error });
+    res.status(500).json({ message: "Registration error", error });
   }
 };
 
@@ -48,12 +47,12 @@ exports.login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: "البريد الإلكتروني أو كلمة المرور غير صحيحة" });
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
     const token = jwt.sign(
@@ -70,16 +69,15 @@ exports.login = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "تم تسجيل الدخول",
-      token, // <-- هذا ضروري
-      user,  // ممكن تضيف بيانات المستخدم كمان
+      message: "Logged in successfully",
+      token, // <-- this is necessary
+      user,  // you can include user data too
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "حدث خطأ غير متوقع" });
+    res.status(500).json({ message: "An unexpected error occurred" });
   }
 };
-
 
 
 
@@ -91,7 +89,7 @@ exports.logout = (req, res) => {
     secure: false,
     sameSite: "lax",
   });
-  res.json({ message: "تم تسجيل الخروج بنجاح" });
+  res.json({ message: "Successfully logged out" });
 };
 
 
@@ -99,26 +97,26 @@ exports.logout = (req, res) => {
 
 
 
+//للتأكد انك مسجل دخول عشان تشوف تفاصيل السياره
 exports.checkAuth = async (req, res) => {
   const token = req.cookies.token;
 
-  if (!token) { 
-    return res.status(401).json({ authenticated: false, message: "لم يتم تسجيل الدخول" });
+  if (!token) {
+    return res.status(401).json({ authenticated: false, message: "Not logged in" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id).select("-password");
     if (!user) {
-      return res.status(404).json({ authenticated: false, message: "المستخدم غير موجود" });
+      return res.status(404).json({ authenticated: false, message: "User not found" });
     }
 
     res.json({ authenticated: true, user });
   } catch (error) {
-    res.status(401).json({ authenticated: false, message: "توكن غير صالح" });
+    res.status(401).json({ authenticated: false, message: "Invalid token" });
   }
 };
-
 
 
 
@@ -133,14 +131,14 @@ exports.updateProfile = async (req, res) => {
   const User = require("../models/User");
 
   if (!token) {
-    return res.status(401).json({ message: "غير مصرح" });
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
     if (!user) {
-      return res.status(404).json({ message: "المستخدم غير موجود" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const fieldsToUpdate = ['name', 'email', 'phoneNumber', 'address', 'bio'];
@@ -156,10 +154,10 @@ exports.updateProfile = async (req, res) => {
     }
 
     await user.save();
-    res.status(200).json({ message: "تم تحديث الملف الشخصي", user });
+    res.status(200).json({ message: "Profile updated successfully", user });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "حدث خطأ أثناء التحديث" });
+    res.status(500).json({ message: "An error occurred while updating the profile" });
   }
 };
 
@@ -170,12 +168,13 @@ exports.updateProfile = async (req, res) => {
 //جلب كل المستخدمين
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password"); // بدون الباسوورد
+    const users = await User.find().select("-password"); // excluding the password
     res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ message: "فشل في جلب المستخدمين", error: error.message });
+    res.status(500).json({ message: "Failed to fetch users", error: error.message });
   }
 };
+
 
 
 
@@ -185,13 +184,14 @@ exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: "المستخدم غير موجود" });
+      return res.status(404).json({ message: "User not found" });
     }
-    res.status(200).json({ message: "تم حذف المستخدم بنجاح" });
+    res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "فشل في حذف المستخدم", error: error.message });
+    res.status(500).json({ message: "Failed to delete user", error: error.message });
   }
 };
+
 
 
 
@@ -203,12 +203,12 @@ exports.createUser = async (req, res) => {
     const { name, email, phoneNumber, password, role } = req.body;
 
     if (!name || !email || !phoneNumber || !password) {
-      return res.status(400).json({ message: "الاسم، الإيميل، وكلمة السر مطلوبة" });
+      return res.status(400).json({ message: "Name, email, and password are required" });
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: "هذا البريد مستخدم بالفعل" });
+      return res.status(400).json({ message: "This email is already in use" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -223,12 +223,13 @@ exports.createUser = async (req, res) => {
 
     await user.save();
 
-    res.status(201).json({ message: "تم إنشاء المستخدم", user });
+    res.status(201).json({ message: "User created successfully", user });
   } catch (error) {
-    console.error("❌ فشل في إنشاء المستخدم:", error.message); // مهم
-    res.status(500).json({ message: "خطأ في السيرفر", error: error.message });
+    console.error("❌ Failed to create user:", error.message); // important
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 
@@ -238,12 +239,13 @@ exports.createUser = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("-password");
-    if (!user) return res.status(404).json({ message: "المستخدم غير موجود" });
+    if (!user) return res.status(404).json({ message: "User not found" });
     res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "فشل في جلب بيانات المستخدم", error: error.message });
+    res.status(500).json({ message: "Failed to fetch user data", error: error.message });
   }
 };
+
 
 
 
@@ -261,11 +263,11 @@ exports.updateUser = async (req, res) => {
       { new: true, runValidators: true }
     );
 
-    if (!updatedUser) return res.status(404).json({ message: "المستخدم غير موجود" });
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
 
-    res.status(200).json({ message: "✅ تم تحديث المستخدم بنجاح", user: updatedUser });
+    res.status(200).json({ message: "✅ User updated successfully", user: updatedUser });
   } catch (error) {
-    res.status(500).json({ message: "❌ فشل في التحديث", error: error.message });
+    res.status(500).json({ message: "❌ Failed to update user", error: error.message });
   }
 };
 
@@ -278,11 +280,10 @@ exports.updateUser = async (req, res) => {
 
 // دالة لجلب عدد المستخدمين المسجلين
 exports.getUserCount = async (req, res) => {
- 
-    try {
-      const users = await User.find().select("-password"); // بدون الباسوورد
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(500).json({ message: "فشل في جلب المستخدمين", error: error.message });
-    }
+  try {
+    const users = await User.find().select("-password"); // excluding the password
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch users", error: error.message });
+  }
 };

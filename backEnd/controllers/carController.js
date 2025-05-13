@@ -344,6 +344,25 @@ exports.getApprovedCarCount = async (req, res) => {
 
 
 
+
+
+// بجيب اول 3 سيارات للهوم
+exports.getLatestApprovedCars = async (req, res) => {
+  try {
+    const latestCars = await Car.find({ status: 'approved' })
+      .sort({ createdAt: -1 }) // الأحدث أولاً
+      .limit(3);
+
+    res.status(200).json(latestCars);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching latest approved cars', error });
+  }
+};
+
+
+
+
+
 // إضافة تعليق
 // exports.addComment = async (req, res) => {
 //   const { carId } = req.params;
