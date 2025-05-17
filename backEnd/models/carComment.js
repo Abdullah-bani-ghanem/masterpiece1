@@ -15,6 +15,10 @@ const commentSchema = new mongoose.Schema(
     comment: {
       type: String,
       required: true
+    },
+    isReported: {
+      type: Boolean,
+      default: false,
     }
   },
   { timestamps: true } // سيقوم Mongoose بإنشاء الحقول `createdAt` و `updatedAt` تلقائيًا

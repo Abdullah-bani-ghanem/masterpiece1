@@ -173,7 +173,7 @@ function Bikes() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-8">
       {/* Header Section with Improved Hero */}
       <div className="bg-black bg-opacity-70 py-12 px-4 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('../img/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
@@ -190,12 +190,12 @@ function Bikes() {
             <input
               type="text"
               placeholder="Search by type, brand, name..."
-              className="w-full py-3 px-6 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 dark:bg-[#FBBF24] text-white"
+              className="w-full py-3 px-6 rounded-full bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 dark:bg-white text-black"
               value={searchQuery}
               onChange={handleSearchChange}
             />
             <button type="submit" className="absolute right-3 top-3 ">
-              <FaSearch size={20} />
+              <FaSearch className="text-black" size={20} />
             </button>
           </form>
         </div>
@@ -239,7 +239,7 @@ function Bikes() {
         )}
       </div>
 
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 mb-20">
         <div className="mb-8 flex justify-end">
           <Link to="/admin/add-bike" className="mt-4 md:mt-0">
             <button className="dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-3 px-6 rounded-lg transition-colors duration-300 font-medium flex items-center">
@@ -265,7 +265,14 @@ function Bikes() {
           <div className="font-[Playfair Display] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
 
             {searchResults.map((bike) => (
-              <div key={bike._id} className="rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg border border-gray-700 group mb-3">
+              <div
+                key={bike._id}
+                className="rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 border border-gray-700 group mb-3"
+                style={{
+                  boxShadow: "0px 1px 7px rgba(251, 191, 36, 0.5), -1px 0px 7px rgba(251, 191, 36, 0.3), 1px 0px 7px rgba(251, 191, 36, 0.3)"
+                }}
+              >
+
                 <img
                   src={`http://localhost:5000/${bike.images[0]}`}
                   alt={bike.name}

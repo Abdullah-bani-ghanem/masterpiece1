@@ -36,6 +36,7 @@ import BikeDetails from '../src/Pages/Bike/BikeDetails';
 import BikeAdmin from '../src/admin-dashboard/pages/Baike/AdminBikeDashboard';
 import BikeDetailsAdminPage from '../src/admin-dashboard/pages/Baike/BikeDetailsAdminPage';
 import BikeCommentsAdmin from '../src/admin-dashboard/pages/Baike/BikeCommentsAdmin';
+import Testimonials from '../src/admin-dashboard/pages/TestimonialsAdmin';
 
 
 
@@ -88,6 +89,7 @@ function App() {
           <Route path="/admin/AdminBikeDashboard" element={<AdminLayout><BikeAdmin /></AdminLayout>}/>
           <Route path="/admin/BikeDetailsAdminPage/:id" element={<AdminLayout><BikeDetailsAdminPage /></AdminLayout>}/>
           <Route path="/admin/BikeCommentsAdmin" element={<AdminLayout><BikeCommentsAdmin /></AdminLayout>}/>
+          <Route path="/admin-dashboard/testimonials" element={<AdminLayout><Testimonials /></AdminLayout>}/>
           {/* <Route path="/admin/contacts" element={<ContactsManagement />} /> */}
 
        

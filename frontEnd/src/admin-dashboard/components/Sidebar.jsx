@@ -63,8 +63,8 @@ const Sidebar = () => {
               <span>Cars Comment</span>
             </Link>
           </li>
-          
-          
+
+
           <li>
             <Link
               to="/admin/AdminBikeDashboard"
@@ -92,7 +92,16 @@ const Sidebar = () => {
               <span>Users</span>
             </Link>
           </li>
-         
+
+
+          <Link
+            to="/admin-dashboard/testimonials"
+            className="flex items-center gap-3 py-3 px-4 rounded-lg hover:bg-gray-800 transition-all duration-200"
+          >
+            <MessageSquare size={18} className="text-blue-400" />
+            <span>Testimonials</span>
+          </Link>
+
           <li>
             <Link
               to="/admin/contacts"

@@ -287,3 +287,17 @@ exports.getUserCount = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch users", error: error.message });
   }
 };
+
+
+
+
+
+//بتجيب اسم اليوزر للتعليقات بالهووم
+exports.getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("name email");
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Error getting user info" });
+  }
+};

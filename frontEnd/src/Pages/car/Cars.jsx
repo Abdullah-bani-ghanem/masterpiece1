@@ -172,7 +172,7 @@ function Cars() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-8">
       {/* Header Section with Improved Hero */}
       <div className="bg-black bg-opacity-70 py-12 px-4 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('../img/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
@@ -189,12 +189,12 @@ function Cars() {
             <input
               type="text"
               placeholder="Search by make, model, year, color, engine type..."
-              className="w-full py-3 px-6 rounded-full   focus:outline-none focus:ring-2 dark:bg-[#FBBF24] text-white"
+              className="w-full py-3 px-6 rounded-full    focus:ring-2 dark:bg-white text-black"
               value={searchQuery}
               onChange={handleSearchChange}
             />
             <button type="submit" className="absolute right-3 top-3 ">
-              <FaSearch size={20} />
+              <FaSearch className="text-black" size={20} />
             </button>
           </form>
 
@@ -237,7 +237,7 @@ function Cars() {
               </p>
             )}
           </div>
-          
+
           {/* Add Car For Sale Button */}
           <Link to="/form" className="mt-4 md:mt-0">
             <button className="dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-3 px-6 rounded-lg transition-colors duration-300 font-medium flex items-center">
@@ -271,10 +271,16 @@ function Cars() {
           </div>
         ) : (
           /* Cars Grid with Improved Card Design */
-          <div className="font-[Playfair Display] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 ">
-            {searchResults.map((car,index) => (
+          <div className="font-[Playfair Display] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 mb-20 ">
+            {searchResults.map((car, index) => (
 
-              <div key={index} className=" rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-lg border border-gray-700 group mb-3">
+              <div
+                key={index}
+                className="rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 shadow-lg border border-gray-700 group mb-3"
+                style={{
+                  boxShadow: "0px 1px 7px rgba(251, 191, 36, 0.5), -1px 0px 7px rgba(251, 191, 36, 0.3), 1px 0px 7px rgba(251, 191, 36, 0.3)",
+                }}
+              >
                 <div className="relative">
                   <img
                     src={`http://localhost:5000/uploads/${car.images[0]}`}
@@ -311,13 +317,14 @@ function Cars() {
               </div>
             ))}
           </div>
+
         )}
       </div>
 
 
 
 
-      <WhatsAndButton/>
+      <WhatsAndButton />
 
     </div>
   );

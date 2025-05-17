@@ -105,19 +105,28 @@ exports.deleteComment = async (req, res) => {
     const { commentId } = req.params;
 
     try {
-        // بدلاً من `remove()` استخدم `findByIdAndDelete()` لحذف التعليق مباشرة
-        const comment = await Comment.findByIdAndDelete(commentId);
+        // ابحث عن التعليق أولاً
+        const comment = await Comment.findById(commentId);
 
         if (!comment) {
             return res.status(404).json({ message: 'Comment not found.' });
         }
 
+        // تحقق من أن المستخدم الحالي هو من كتب التعليق
+        if (comment.userId.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'You can only delete your own comments.' });
+        }
+
+        // حذف التعليق
+        await Comment.findByIdAndDelete(commentId);
+
         res.status(200).json({ message: 'Comment deleted successfully.' });
     } catch (err) {
-        console.error("Error deleting comment:", err);
+        console.error('Error deleting comment:', err);
         res.status(500).json({ message: 'Failed to delete comment.' });
     }
 };
+
 
 
 
@@ -166,3 +175,51 @@ exports.getAllBikeComments = async (req, res) => {
       res.status(500).json({ message: 'Error deleting bike comment', error });
     }
   };
+
+
+
+
+
+
+  
+  // وضع تعليق كمُبلغ عنه
+exports.reportComment = async (req, res) => {
+    try {
+      const { commentId } = req.params;
+  
+      const comment = await Comment.findById(commentId);
+  
+      if (!comment) {
+        return res.status(404).json({ message: 'Comment not found.' });
+      }
+  
+      comment.isReported = true;
+      await comment.save();
+  
+      res.status(200).json({ message: 'Comment has been reported.' });
+    } catch (error) {
+      console.error('Error reporting comment:', error);
+      res.status(500).json({ message: 'Failed to report comment.' });
+    }
+  };
+  
+
+
+
+
+
+  // ✅ جلب التعليقات المبلّغ عنها (للأدمن فقط)
+exports.getReportedComments = async (req, res) => {
+    try {
+      const comments = await Comment.find({ isReported: true })
+        .populate('userId', 'name email')
+        .populate('carId', 'name model')
+        .sort({ createdAt: -1 });
+  
+      res.status(200).json(comments);
+    } catch (error) {
+      console.error("Error fetching reported comments:", error);
+      res.status(500).json({ message: 'Failed to fetch reported comments.' });
+    }
+  };
+    

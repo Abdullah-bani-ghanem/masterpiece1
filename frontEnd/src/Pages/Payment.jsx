@@ -91,7 +91,7 @@ const ClassicCarsPaymentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-  
+
     try {
       const response = await fetch('http://localhost:5000/api/payment', {
         method: 'POST',
@@ -101,7 +101,7 @@ const ClassicCarsPaymentForm = () => {
         credentials: 'include',
         body: JSON.stringify(formData)
       });
-  
+
       const data = await response.json();
       if (response.ok) {
         Swal.fire({
@@ -132,23 +132,28 @@ const ClassicCarsPaymentForm = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-gray-700 bg-opacity-70 bg-blend-overlay bg-center bg-cover py-10" 
-           style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1609429019995-8c40f49535a5?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y3JlZGl0JTIwY2FyZHxlbnwwfHwwfHx8MA%3D%3D")' }}>
+      {/* <div className="bg-gray-700 bg-opacity-70 bg-blend-overlay bg-center bg-cover py-25 mt-8"
+        style={{ backgroundImage: 'url("https://images.pexels.com/photos/6214475/pexels-photo-6214475.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load' }}>
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="font-[Playfair Display] text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">Payment</h1>
           <p className="font-[Playfair Display] text-xl md:text-2xl max-w-3xl mx-auto">
-          "Welcome to the payment page – please complete your payment to finalize your order safely and easily."
+            "Welcome to the payment page – please complete your payment to finalize your order safely and easily."
           </p>
         </div>
-      </div>
-  
+      </div> */}
+
 
 
       {/* باقي الصفحة */}
       <div className="flex items-center justify-center  dark:bg-[#2d2d2e] p-4">
-        
-        <div className=" bg-gray-900 text-white border border-gray-700 rounded-lg overflow-hidden py-20">
-          
+
+        <div
+          className="text-white border border-gray-700 rounded-lg overflow-hidden py-10 mt-25 mb-20"
+          style={{
+            boxShadow: '0 0 10px 1px #facc15' // أصفر Tailwind: yellow-400
+          }}
+        >
+
           {/* <div className="relative">
             <img 
               src="https://images.unsplash.com/photo-1576761733452-984b98effaf3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8ODR8fGNhciUyMGNsYXNzaWN8ZW58MHx8MHx8fDA%3D" 
@@ -164,85 +169,85 @@ const ClassicCarsPaymentForm = () => {
               />
             </div>
           </div> */}
-  
+
           <div className="pt-12 pb-6 text-center px-6">
             <h2 className="text-xl font-bold text-white">Card Payment</h2>
           </div>
-  
+
           <div className=" px-6 pb-6">
             <form className="space-y-10" onSubmit={handleSubmit}>
               <div className="space-y-1">
                 <label className="block text-white">
                   <span className="text-[#FBBF24]">*</span> Name on Card
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="cardName"
                   value={formData.cardName}
                   onChange={handleChange}
-                  placeholder="John Doe" 
-                  className={`w-full px-3 py-2 bg-gray-800 border ${errors.cardName ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`} 
+                  placeholder="John Doe"
+                  className={`w-full px-3 py-2 dark:bg-[#49494a] border ${errors.cardName ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`}
                   required
                 />
-                {errors.cardName && <p className="text-green-500 text-xs mt-1">{errors.cardName}</p>}
+                {errors.cardName && <p className="dark:text-red-600 text-xs mt-1">{errors.cardName}</p>}
               </div>
-  
+
               <div className="space-y-1">
                 <label className="block text-white">
                   <span className="text-[#FBBF24]">*</span> Card Number
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   name="cardNumber"
                   value={formData.cardNumber}
                   onChange={handleChange}
-                  placeholder="1234 5678 9012 3456" 
-                  className={`w-full px-3 py-2 bg-gray-800 border ${errors.cardNumber ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`} 
+                  placeholder="1234 5678 9012 3456"
+                  className={`w-full px-3 py-2 dark:bg-[#49494a] border ${errors.cardNumber ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`}
                   required
                 />
-                {errors.cardNumber && <p className="text-green-500 text-xs mt-1">{errors.cardNumber}</p>}
+                {errors.cardNumber && <p className="dark:text-red-600 text-xs mt-1">{errors.cardNumber}</p>}
               </div>
-  
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="block text-white">
                     <span className="text-[#FBBF24]">*</span> Security Code
                   </label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="securityCode"
                     value={formData.securityCode}
                     onChange={handleChange}
-                    placeholder="CVC" 
-                    className={`w-full px-3 py-2 bg-gray-800 border ${errors.securityCode ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`} 
+                    placeholder="CVC"
+                    className={`w-full px-3 py-2 dark:bg-[#49494a] border ${errors.securityCode ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`}
                     required
                   />
-                  {errors.securityCode && <p className="text-green-500 text-xs mt-1">{errors.securityCode}</p>}
+                  {errors.securityCode && <p className="dark:text-red-600 text-xs mt-1">{errors.securityCode}</p>}
                 </div>
                 <div className="space-y-1">
                   <label className="block text-white">
                     <span className="text-[#FBBF24]">*</span> Expiration Date
                   </label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="expiryDate"
                     value={formData.expiryDate}
                     onChange={handleChange}
-                    placeholder="MM/YY" 
-                    className={`w-full px-3 py-2 bg-gray-800 border ${errors.expiryDate ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`} 
+                    placeholder="MM/YY"
+                    className={`w-full px-3 py-2 dark:bg-[#49494a] border ${errors.expiryDate ? 'border-yellow-500' : 'border-gray-700'} text-white rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-600`}
                     required
                   />
-                  {errors.expiryDate && <p className="text-green-500 text-xs mt-1">{errors.expiryDate}</p>}
+                  {errors.expiryDate && <p className="dark:text-red-600 text-xs mt-1">{errors.expiryDate}</p>}
                 </div>
               </div>
-  
-              <button 
-                type="submit" 
+
+              <button
+                type="submit"
                 className="w-full py-2 bg-[#FBBF24] hover:bg-yellow-600 text-white rounded-md transition duration-200"
               >
                 Complete Payment
               </button>
-  
+
               <div className="flex items-center justify-center text-[#FBBF24] text-sm pt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -253,14 +258,15 @@ const ClassicCarsPaymentForm = () => {
             </form>
           </div>
         </div>
-  
-  
-  
-  <WhatsAndButton/>
-   
+
+
+
+        <WhatsAndButton />
+
       </div>
-      </div>
-    
-  )};
-  
+    </div>
+
+  )
+};
+
 export default ClassicCarsPaymentForm;

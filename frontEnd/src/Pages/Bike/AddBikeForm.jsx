@@ -449,12 +449,16 @@ const AddBikeForm = () => {
 
       const token = localStorage.getItem('token');
 
-      const res = await axios.post('http://localhost:5000/api/bikes/submit', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.post(
+        'http://localhost:5000/api/bikes/submit',
+        formDataToSend,
+        {
+          withCredentials: true, // ✅ يسمح بإرسال الكوكي مع الطلب
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
 
       if (res.status === 201) {
         Swal.fire({

@@ -15,6 +15,7 @@ const counterRoute=require("../backEnd/routes/counterRoute")
 const bikeRoutes = require('./routes/bikeRoutes');
 const bikeCommentRoutes = require('../backEnd/routes/bikeComments');
 const wishlistRoutes = require("./routes/wishlistRoutes"); 
+const testimonialRoutes = require("./routes/testimonialRoutes");
 
 
 
@@ -47,6 +48,7 @@ app.use('/api/comments', commentRoutes);
 app.use("/api/bikes", bikeRoutes); // إضافة هذا السطر لربط مسار الدراجات
 app.use('/api/bikeComments', bikeCommentRoutes);
 app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/testimonials", testimonialRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 

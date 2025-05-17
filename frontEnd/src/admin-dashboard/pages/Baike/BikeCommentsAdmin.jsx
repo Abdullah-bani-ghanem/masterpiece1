@@ -9,7 +9,7 @@ const BikeCommentsAdmin = () => {
   const fetchComments = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("/api/bikeComments/admin/all", {
+      const res = await axios.get("/api/bikeComments/admin/reported", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setComments(res.data);

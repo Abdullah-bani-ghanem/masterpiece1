@@ -160,8 +160,17 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      carId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Car',
+      },
+      bikeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bike',
+      }
     }
-  ],
+  ]
+  
 
 });
 

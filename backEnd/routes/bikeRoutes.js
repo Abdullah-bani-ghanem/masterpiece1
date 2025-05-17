@@ -72,6 +72,7 @@ router.put("/admin/update/:id", protect, isAdmin, bikeController.updateBike);// 
 router.get('/approved-bikes', bikeController.getApprovedBikes);//  عرض جميع الدراجات المعتمدة
 
 router.get('/latest-approved', bikeController.getLatestApprovedBikes);// جلب 3 دراجات فقط للواجهة الرئيسية
+router.get('/latest-approvedd', bikeController.getLatestApprovedBikes7);
 
 // 🌐 عدد الدراجات المعتمدة
 router.get('/approved-bike-count', bikeController.getApprovedBikeCount);

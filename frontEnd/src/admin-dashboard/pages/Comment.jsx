@@ -20,7 +20,7 @@ const CommentsManagement = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:5000/api/comments/allComments', {
+            const response = await fetch('http://localhost:5000/api/comments/admin/reported', {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

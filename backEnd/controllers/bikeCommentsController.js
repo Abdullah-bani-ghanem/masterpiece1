@@ -128,15 +128,30 @@ exports.deleteComment = async (req, res) => {
 
 
 // جلب جميع تعليقات الدراجات
-exports.getAllBikeComments = async (req, res) => {
+// exports.getAllBikeComments = async (req, res) => {
+//     try {
+//       const comments = await Comment.find().populate('userId', 'name email');
+//       res.status(200).json(comments);
+//     } catch (error) {
+//       res.status(500).json({ message: 'Error fetching bike comments', error });
+//     }
+//   };
+//جلب التعليق المبلغ عنه للادمن
+exports.getReportedComments = async (req, res) => {
     try {
-      const comments = await Comment.find().populate('userId', 'name email');
-      res.status(200).json(comments);
+      const reported = await Comment.find({ isReported: true })
+        .populate('userId', 'name email')
+        .populate('bikeId', 'name');
+  
+      res.status(200).json(reported);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching bike comments', error });
+      res.status(500).json({ message: 'Error fetching reported comments', error });
     }
   };
   
+  
+
+
   // حذف تعليق دراجة
   exports.deleteBikeComment = async (req, res) => {
     try {
@@ -147,3 +162,29 @@ exports.getAllBikeComments = async (req, res) => {
       res.status(500).json({ message: 'Error deleting bike comment', error });
     }
   };
+
+
+
+
+
+
+  // وضع تعليق كمُبلغ عنه
+exports.reportComment = async (req, res) => {
+    const { commentId } = req.params;
+  
+    try {
+      const comment = await Comment.findById(commentId);
+      if (!comment) {
+        return res.status(404).json({ message: 'Comment not found.' });
+      }
+  
+      comment.isReported = true;
+      await comment.save();
+  
+      res.status(200).json({ message: 'Comment reported successfully.' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Failed to report comment.' });
+    }
+  };
+  

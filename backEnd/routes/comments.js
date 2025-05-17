@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { addComment, getComments, updateComment, deleteComment, adminDeleteComment, getAllComments } = require('../controllers/commentsController');
+const { addComment, getComments, updateComment, deleteComment, adminDeleteComment, getReportedComments,reportComment } = require('../controllers/commentsController');
 const { protect, isAdmin, isCommentOwner } = require('../middleware/auth');
 // مسار جلب جميع التعليقات
 
-router.get('/allComments', protect, isAdmin, getAllComments);
+// router.get('/allComments', protect, isAdmin, getAllComments);
+
+// ✅ جلب تعليقات مبلّغ عنها للأدمن
+router.get('/admin/reported', protect, isAdmin, getReportedComments);
 
 // مسار إضافة تعليق (حماية الوصول إلى المسار من خلال التوكن)
 router.post('/:carId', protect, addComment);
@@ -16,11 +19,14 @@ router.get('/:carId', getComments);
 router.put('/:commentId', protect, isCommentOwner, updateComment);
 
 // مسار حذف تعليق معين (حماية الوصول من خلال التوكن و التحقق من مالك التعليق)
-router.delete('/:commentId', deleteComment);
+router.delete('/:commentId',protect, deleteComment);
 // router.delete('/:commentId', protect, isCommentOwner, deleteComment);
 
 // جلب جميع التعليقات
 // router.get('/comments', getComments); 
 router.delete('/:commentId', protect, isAdmin, adminDeleteComment);
+
+// ✅ راوت تبليغ
+router.patch('/report/:commentId', protect, reportComment);
 
 module.exports = router;

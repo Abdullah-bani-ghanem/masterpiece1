@@ -71,7 +71,7 @@ const CarDetails = () => {
         return (
             <div className="min-h-screen flex items-center justify-center bg-black">
                 <div className="text-amber-300 text-xl font-serif">
-                Please log in
+                    Please log in
                 </div>
             </div>
         );
@@ -81,47 +81,55 @@ const CarDetails = () => {
 
     const handleAddToWishlist = async () => {
         try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Not Logged In',
-                    text: 'Please login to add to wishlist.',
-                });
-                return;
+          const token = localStorage.getItem('token');
+          if (!token) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Not Logged In',
+              text: 'Please login to add to wishlist.',
+            });
+            return;
+          }
+      
+          await axios.post(
+            'http://localhost:5000/api/wishlist',
+            {
+              type: 'car',
+              carId: car._id, // ✅ هذا السطر هو أهم شيء
+              name: car.name,
+              model: car.model,
+              year: car.year,
+              imageUrl:
+                car.images.length > 0
+                  ? `http://localhost:5000/uploads/${car.images[0]}`
+                  : '',
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              withCredentials: true,
             }
-
-            await axios.post('http://localhost:5000/api/wishlist', {
-                type: 'car',
-                name: car.name,
-                model: car.model,
-                year: car.year,
-                imageUrl: car.images.length > 0 ? `http://localhost:5000/uploads/${car.images[0]}` : ''
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                withCredentials: true,
-            });
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Added to Wishlist!',
-                text: `${car.name} has been added to your wishlist.`,
-                confirmButtonText: 'OK'
-            });
-
+          );
+      
+          Swal.fire({
+            icon: 'success',
+            title: 'Added to Wishlist!',
+            text: `${car.name} has been added to your wishlist.`,
+            confirmButtonText: 'OK',
+          });
         } catch (err) {
-            console.error('Error adding to wishlist:', err);
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: err.response?.data?.message || 'Failed to add the car to wishlist.',
-                confirmButtonText: 'OK'
-            });
+          console.error('Error adding to wishlist:', err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text:
+              err.response?.data?.message || 'Failed to add the car to wishlist.',
+            confirmButtonText: 'OK',
+          });
         }
-    };
-
+      };
+      
 
 
 
@@ -160,10 +168,10 @@ const CarDetails = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-    
+
             // Remove the deleted comment from the state
             setComments(comments.filter((comment) => comment._id !== commentId));
-            
+
             // Add SweetAlert to confirm comment deletion
             Swal.fire({
                 title: 'Deleted!',
@@ -173,7 +181,7 @@ const CarDetails = () => {
             });
         } catch (err) {
             console.error("Error deleting comment:", err);
-            
+
             // Add SweetAlert for error case
             Swal.fire({
                 title: 'Error!',
@@ -187,7 +195,7 @@ const CarDetails = () => {
     const handleEditComment = (commentId, existingComment) => {
         setEditingCommentId(commentId);
         setEditedComment(existingComment);
-          // Set the current comment text for editing
+        // Set the current comment text for editing
     };
 
 
@@ -197,7 +205,7 @@ const CarDetails = () => {
 
     const handleUpdateComment = async () => {
         if (editedComment.trim() === '') return;
-    
+
         try {
             const token = localStorage.getItem('token');
             const response = await axios.put(
@@ -209,7 +217,7 @@ const CarDetails = () => {
                     },
                 }
             );
-    
+
             // Update the comment in the UI
             setComments((prevComments) =>
                 prevComments.map((comment) =>
@@ -218,7 +226,7 @@ const CarDetails = () => {
             );
             setEditingCommentId(null);  // Reset editing state
             setEditedComment('');
-            
+
             // Add SweetAlert to confirm comment update
             Swal.fire({
                 title: 'Updated!',
@@ -228,7 +236,7 @@ const CarDetails = () => {
             });
         } catch (err) {
             console.error("Error updating comment:", err);
-            
+
             // Add SweetAlert for error case
             Swal.fire({
                 title: 'Error!',
@@ -284,6 +292,36 @@ const CarDetails = () => {
 
         return formatDate(dateString);
     };
+
+
+
+
+
+    const handleReportComment = async (commentId) => {
+        try {
+          const token = localStorage.getItem('token');
+          await axios.patch(`http://localhost:5000/api/comments/report/${commentId}`, {}, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+      
+          Swal.fire({
+            icon: 'success',
+            title: 'Comment Reported',
+            text: 'Thank you for reporting. Our admin will review this comment.',
+          });
+      
+        } catch (err) {
+          console.error("Failed to report comment:", err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Report Failed',
+            text: err.response?.data?.message || 'Something went wrong!',
+          });
+        }
+      };
+      
 
     return (
         <div className="bg-gradient-to-b dark:bg-[#2d2d2e] pt-12 pb-20">
@@ -537,7 +575,7 @@ const CarDetails = () => {
                             <div className="space-y-6">
                                 {comments.length > 0 ? (
                                     comments.map((comment, index) => (
-                                      
+
                                         <div key={index} className="dark:bg-[#2d2d2e] bg-opacity-50 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition duration-300">
                                             <div className="flex items-center mb-3">
                                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-100 to-[#FBBF24] mr-3 flex items-center justify-center text-black font-bold text-sm">
@@ -593,10 +631,16 @@ const CarDetails = () => {
                                                     Delete
                                                 </button>
                                                 <button
-                                                     onClick={() => handleEditComment(comment._id, comment.comment)}
+                                                    onClick={() => handleEditComment(comment._id, comment.comment)}
                                                     className="bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-md"
                                                 >
                                                     Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => handleReportComment(comment._id)}
+                                                    className="bg-yellow-600 hover:bg-yellow-700 text-black font-medium py-2 px-6 rounded-md"
+                                                >
+                                                    Report
                                                 </button>
                                             </div>
                                         </div>

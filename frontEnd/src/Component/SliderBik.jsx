@@ -1,45 +1,58 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-const bikeImages = [
-  "src/img/11.jpeg",
-  "src/img/22.jpeg", 
-  "src/img/33.jpeg", 
-  "src/img/44.jpeg",
-  "src/img/55.jpeg",
-  "src/img/66.jpeg",
-];
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 export default function SliderBike() {
+  const [bikeImages, setBikeImages] = useState([]);
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
+  // جلب الصور عند التحميل
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/bikes/latest-approvedd")
+      .then((res) => {
+        setBikeImages(res.data);
+        
+      })
+      .catch((err) => {
+        console.error("Error fetching bike images:", err);
+      });
+  }, []);
 
-  // Auto-switch every 5 seconds
+  // التبديل التلقائي
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % bikeImages.length);
-    }, 5000); // 5 seconds
-
-    return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [bikeImages]);
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % bikeImages.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + bikeImages.length) % bikeImages.length);
+
+  if (bikeImages.length === 0) return <p className="text-center">Loading...</p>;
 
   return (
     <>
       <br />
       <div className="relative max-w-3xl dark:bg-[#2d2d2e] mx-auto h-96 overflow-hidden rounded-2xl shadow-lg">
         <AnimatePresence mode="wait">
-          <motion.img
-            key={current}
-            src={bikeImages[current]}
-            className="w-full h-full object-cover"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-          />
+          <div onClick={() => navigate(`/bike-details/${bikeImages[current]?.id}`)} className="cursor-pointer">
+            {/* ✅ السعر */}
+            <div className="absolute top-4 right-4 bg-yellow-400 text-black px-3 py-1 rounded-md text-sm font-semibold shadow">
+              {bikeImages[current]?.price} $
+            </div>
+            <motion.img
+              key={current}
+              src={`http://localhost:5000/${bikeImages[current]?.image}`} // ✅ هذا هو الصح
+              className="w-full h-96 object-cover"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
         </AnimatePresence>
 
         <button

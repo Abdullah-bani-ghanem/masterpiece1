@@ -12,19 +12,19 @@ exports.getAllBikes = async (req, res) => {
 };
 
 
+
+
  
-
-
 exports.addBike = async (req, res) => {
   try {
-
     const { name, brand, type, price, description, model, year, condition, status, adminNote } = req.body;
 
     if (!name || !brand || !type || !price || !model || !year || !condition || !description) {
       return res.status(400).json({ message: 'Please fill in all required fields' });
     }
 
-    // إذا كانت البيانات بتنسيق جيد، قم بإنشاء الدراجة الجديدة
+    const userId = req.user.id; // 👈 استخراج ID المستخدم من التوكن
+
     const newBike = new Bike({
       name,
       brand,
@@ -36,16 +36,18 @@ exports.addBike = async (req, res) => {
       condition,
       status,
       adminNote,
+      seller: userId, // ✅ ربط الدراجة بالمستخدم الحالي
       images: req.files.map(file => file.path) // تخزين مسارات الصور
     });
 
     await newBike.save();
     res.status(201).json({ message: 'Bike added successfully!', bike: newBike });
   } catch (error) {
-    console.error('Error while adding bike:', error);  // تسجيل الخطأ
+    console.error('Error while adding bike:', error);
     res.status(500).json({ message: 'An error occurred while adding the bike', error });
   }
 };
+
 
 
 
@@ -249,5 +251,43 @@ exports.getLatestApprovedBikes = async (req, res) => {
     res.status(200).json(latestBikes);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching latest approved bikes', error });
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//جلب اخر 7 صور للدراجات للهوم
+exports.getLatestApprovedBikes7 = async (req, res) => {
+  try {
+    const latestBikes = await Bike.find({ status: "approved" })
+      .sort({ createdAt: -1 }) // الأحدث أولاً
+      .skip(3)                 // تجاهل أول 3 (الأحدث)
+      .limit(7)                // جلب 7 بعدهم
+      .select("images price"); // نرجع فقط الصور (أول صورة كافية للسلايدر)
+
+    const formatted = latestBikes.map((bike) => ({
+      id: bike._id,
+      image: bike.images[0], // فقط أول صورة لكل دراجة
+      price: bike.price,
+    }));
+
+    res.json(formatted);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch latest approved bikes" });
   }
 };

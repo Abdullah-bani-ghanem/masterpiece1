@@ -29,7 +29,7 @@ function Serves() {
     <div>
       
       {/* Services Section */}
-      <div className="py-16 ">
+      <div className="">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="font-[Playfair Display] text-5xl font-bold text-center mb-12 dark:text-white">Our Specialized Services</h2>
 

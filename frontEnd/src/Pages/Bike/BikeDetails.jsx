@@ -76,6 +76,7 @@ const BikeDetails = () => {
                 model: bike.model,
                 year: bike.year,
                 imageUrl: `http://localhost:5000/${bike.images[0]}`,
+                bikeId: bike._id, // ✅ أضف هذا السطر!
             };
 
             await axios.post('http://localhost:5000/api/wishlist', newItem, {
@@ -118,7 +119,7 @@ const BikeDetails = () => {
         return (
             <div className="min-h-screen flex items-center justify-center bg-black">
                 <div className="text-amber-300 text-xl font-serif">
-                Please log in
+                    Please log in
                 </div>
             </div>
         );
@@ -238,7 +239,19 @@ const BikeDetails = () => {
         }
     };
 
-
+    const handleReportComment = async (commentId) => {
+        try {
+          await axios.patch(`http://localhost:5000/api/bikeComments/report/${commentId}`, {}, {
+            withCredentials: true
+          });
+      
+          alert("Comment reported successfully!");
+        } catch (error) {
+          console.error("Failed to report comment:", error);
+          alert("Failed to report comment.");
+        }
+      };
+      
 
     const handleImageChange = (index) => {
         setActiveImage(index);
@@ -455,8 +468,8 @@ const BikeDetails = () => {
                             </div>
                         </div>
 
-                         {/* Description Section */}
-                         {bike.description && (
+                        {/* Description Section */}
+                        {bike.description && (
                             <div className="mb-12">
                                 <h2 className="text-2xl font-serif text-[#FBBF24] mb-6 flex items-center">
                                     <span className="inline-block w-8 h-px bg-[#FBBF24] mr-3"></span>
@@ -557,6 +570,12 @@ const BikeDetails = () => {
                                                     className="bg-blue-800 hover:bg-blue-900 text-white font-medium py-2 px-6 rounded-md"
                                                 >
                                                     Edit
+                                                </button>
+                                                <button
+                                                    onClick={() => handleReportComment(comment._id)}
+                                                    className="bg-yellow-500 hover:bg-yellow-600 text-black font-medium py-2 px-6 rounded-md"
+                                                >
+                                                    Report
                                                 </button>
                                             </div>
                                         </div>

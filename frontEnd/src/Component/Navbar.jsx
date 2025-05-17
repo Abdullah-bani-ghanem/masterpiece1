@@ -1,4 +1,3 @@
-
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
@@ -13,6 +12,9 @@ function Navbar() {
   const [userProfilePicture, setUserProfilePicture] = useState("");
   const [userRole, setUserRole] = useState('');
   const [isSticky, setIsSticky] = useState(false);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+
   //منع اليوزر من الداش بورد
   const { user } = useContext(AuthContext);
 
@@ -37,6 +39,27 @@ function Navbar() {
     fetchUser();
   }, []);
 
+
+
+  //عشان الناف بار ينزل ويطلع
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+        // Scroll Down
+        setIsVisible(false);
+      } else {
+        // Scroll Up
+        setIsVisible(true);
+      }
+
+      setLastScrollTop(currentScrollTop <= 0 ? 0 : currentScrollTop); // لمنع القيم السالبة
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollTop]);
 
 
 
@@ -67,6 +90,7 @@ function Navbar() {
       </div>
     )
   }
+
 
 
   // Check authentication status when page loads
@@ -110,54 +134,74 @@ function Navbar() {
     // ...
   }, [location.pathname]);
 
+
+
   // Handle logout functionality
   const handleLogout = async () => {
-    try {
-      await axios.post("http://localhost:5000/api/users/logout", {}, { withCredentials: true });
-      setIsAuthenticated(false);
-      setUserName('');
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You will be logged out from your account.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444', // Red for logout
+      cancelButtonColor: '#6b7280',  // Gray for cancel
+      confirmButtonText: 'Yes, logout',
+      cancelButtonText: 'Cancel',
+      background: '#1f2937', // gray-800
+      color: '#ffffff', // White text
+      iconColor: '#facc15' // Yellow warning icon
+    });
 
-      // Using SweetAlert with gray-800 background
-      Swal.fire({
-        title: 'Success!',
-        text: 'Logged out successfully',
-        icon: 'success',
-        confirmButtonText: 'OK',
-        timer: 2000,
-        timerProgressBar: true,
-        background: '#1f2937', // This is the equivalent of gray-800
-        iconColor: '#10b981', // A nice green color for the success icon
-        color: '#ffffff', // White text for better contrast
-        confirmButtonColor: '#3b82f6' // Blue button
-      });
+    if (result.isConfirmed) {
+      try {
+        await axios.post("http://localhost:5000/api/users/logout", {}, { withCredentials: true });
+        setIsAuthenticated(false);
+        setUserName('');
 
-      navigate('/'); // Redirect to home page
-    } catch (error) {
-      // Using SweetAlert with gray-800 background for error too
-      Swal.fire({
-        title: 'Error!',
-        text: 'An error occurred during logout',
-        icon: 'error',
-        confirmButtonText: 'OK',
-        background: '#1f2937', // gray-800
-        iconColor: '#ef4444', // Red color for the error icon
-        color: '#ffffff', // White text
-        confirmButtonColor: '#3b82f6' // Blue button
-      });
+        Swal.fire({
+          title: 'Success!',
+          text: 'Logged out successfully',
+          icon: 'success',
+          confirmButtonText: 'OK',
+          timer: 2000,
+          timerProgressBar: true,
+          background: '#1f2937',
+          iconColor: '#10b981',
+          color: '#ffffff',
+          confirmButtonColor: '#3b82f6'
+        });
+
+        navigate('/');
+      } catch (error) {
+        Swal.fire({
+          title: 'Error!',
+          text: 'An error occurred during logout',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          background: '#1f2937',
+          iconColor: '#ef4444',
+          color: '#ffffff',
+          confirmButtonColor: '#3b82f6'
+        });
+      }
     }
   };
 
+
+
+
   return (
-    <nav className={`bg-white border-gray-200 dark:bg-[#FBBF24] shadow-md ${isSticky ? 'fixed top-0 left-0 right-0 z-50 transition-transform duration-300' : ''}`}>
+    <nav className={`bg-white border-gray-200 dark:bg-[#FBBF24] shadow-md fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
 
 
         {/* logo */}
         <a href="/" className="block">
-            {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
-            <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28"/>
-            {/* Classic<span className="text-green-500">Cars</span> */}
-            {/* </h2> */}
+          {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
+          <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28" />
+          {/* Classic<span className="text-green-500">Cars</span> */}
+          {/* </h2> */}
         </a>
 
 
@@ -174,7 +218,7 @@ function Navbar() {
         <div className="flex md:order-3">
           {isAuthenticated ? (
             <button
-              className="font-[Playfair Display] text-white bg-black hover:bg-black focus:ring-2 focus:ring-[#2d2d2e7d] font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-300"
+              className="font-[Playfair Display] text-white bg-black hover:bg-red-800 focus:ring-2 focus:ring-[#2d2d2e7d] font-medium rounded-lg text-sm px-4 py-2 transition-colors duration-300"
               onClick={handleLogout}
             >
               Logout

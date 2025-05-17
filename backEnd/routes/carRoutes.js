@@ -21,7 +21,11 @@ router.post("/addByAdmin", protect,isAdmin, carController.addCarByAdmin);
 // بجيب اول 3 سيارات للهوم
 router.get('/latest-approved', carController.getLatestApprovedCars);
 
+// جلب آخر 7 سيارات معتمدة (للسلايدر في الهوم)
+router.get('/latest-approvedd', carController.getLatestApprovedCars7);
 
+ 
+    
 // فقط الأدمن يشوف السيارات المعلقة
 router.get("/pending", protect, isAdmin, carController.getPendingCars);
 
@@ -31,11 +35,11 @@ router.patch("/status/:id", protect, isAdmin, carController.approveOrRejectCar);
 // الأدمن يعدّل معلومات السيارة
 router.put("/admin/update/:id", protect, isAdmin, carController.updateCarByAdmin);
 
-// المستخدم يرسل سيارة
+// المستخدم يرسل سيارة 
 router.post("/submit", protect, carController.submitCarRequest); // ✅ صح
 
 
-// عرض السيارات المعلقة
+// عرض السيارات المعلقة 
 router.get("/pending", protect, isAdmin, carController.getPendingCars);
 
 

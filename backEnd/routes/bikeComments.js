@@ -5,7 +5,9 @@ const { protect, isAdmin,authMiddleware, isCommentOwner } = require('../middlewa
 
 
 //Admin Routes
-router.get('/admin/all', protect, isAdmin, bikeCommentsController.getAllBikeComments);//جلب التعليقات
+// router.get('/admin/all', protect, isAdmin, bikeCommentsController.getAllBikeComments);//جلب التعليقات
+router.get('/admin/reported', protect, isAdmin, bikeCommentsController.getReportedComments);
+
 
 router.delete('/admin/:id', protect, isAdmin, bikeCommentsController.deleteBikeComment);//حذف تعليق معين
 
@@ -13,6 +15,9 @@ router.delete('/admin/:id', protect, isAdmin, bikeCommentsController.deleteBikeC
 
 //Public Routes
 router.get('/:bikeId', bikeCommentsController.getComments);// الحصول على التعليقات
+
+router.patch('/report/:commentId', protect, bikeCommentsController.reportComment);
+
 
 /////////////////////////////////
 
@@ -22,6 +27,8 @@ router.post('/:addBikeId', protect, bikeCommentsController.addComment);// إضا
 router.put('/update/:commentId', protect, bikeCommentsController.updateComment);// تعديل تعليق
 
 router.delete('/delete/:commentId', protect, bikeCommentsController.deleteComment);// حذف تعليق
+
+
 
 
 module.exports = router;

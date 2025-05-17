@@ -15,10 +15,11 @@ const bikeCommentSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    isReported: {
+        type: Boolean,
+        default: false
+      },
 }, { timestamps: true });
 
-// استخدم هذا الأسلوب للتحقق إذا كان الموديل موجودًا بالفعل لتجنب إعادة تعريفه
-// const Comment = mongoose.models.Comment || mongoose.model('bikeIdComment', commentSchema);
 
-// module.exports = Comment;
 module.exports = mongoose.model('bikeIdComment', bikeCommentSchema);

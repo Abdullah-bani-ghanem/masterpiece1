@@ -164,9 +164,9 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#2d2d2e] relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2d2d2e] relative mt-8">
       {/* Hero Section */}
-      <div className="bg-gray-500 bg-opacity-70 bg-blend-overlay bg-center bg-cover py-28"
+      <div className="bg-gray-500 bg-opacity-70 bg-blend-overlay bg-center bg-cover py-25"
         style={{ backgroundImage: 'url("https://png.pngtree.com/background/20230522/original/pngtree-classic-cars-parked-on-a-street-with-rain-and-clouds-picture-image_2696052.jpg")' }}>
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="font-[Playfair Display] text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">Contact Us</h1>
@@ -176,7 +176,7 @@ const ContactPage = () => {
 
       {/* Contact Section */}
       <div className="py-16 px-4 max-w-7xl mx-auto ">
-        <div className="shadow-lg shadow-yellow-500 bg-white dark:bg-gray-800 rounded-xl  overflow-hidden">
+        <div className="shadow-lg shadow-yellow-500 bg-white dark:bg-[#2d2d2e]  rounded-xl  overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="p-8 md:p-12">
               <h2 className="font-[Playfair Display] text-3xl font-bold mb-6 dark:text-white">Contact Us</h2>
@@ -229,7 +229,7 @@ const ContactPage = () => {
                 </a>
               </div>
             </div>
-            <div className="shadow-xl shadow-yellow-500 bg-gray-100 dark:bg-gray-700 p-8 md:p-12">
+            <div className="shadow-xl shadow-yellow-500 bg-gray-100 dark:bg-[#535354] p-8 md:p-12">
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="font-[Playfair Display] block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Your Name</label>
@@ -238,7 +238,7 @@ const ContactPage = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#FBBF24] dark:bg-[#49494a] dark:border-[#2d2d2e] dark:text-white"
                     required
                   />
                 </div>
@@ -249,7 +249,7 @@ const ContactPage = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#FBBF24] dark:bg-[#49494a] dark:border-[#2d2d2e] dark:text-white"
                     required
                   />
                 </div>
@@ -260,7 +260,7 @@ const ContactPage = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white"
+                    className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#FBBF24] dark:bg-[#49494a] dark:border-[#2d2d2e] dark:text-white"
                     required
                   ></textarea>
                 </div>
@@ -288,7 +288,7 @@ const ContactPage = () => {
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-4 flex justify-between items-center bg-white dark:bg-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                  className="w-full px-6 py-4 flex justify-between items-center bg-white dark:bg-[#49494a] rounded-lg hover:bg-gray-50 dark:hover:dark:bg-[#535354] transition-colors"
                 >
                   <h3 className="font-[Playfair Display] text-xl font-semibold text-left text-gray-800 dark:text-gray-200">
                     {faq.question}
@@ -300,7 +300,7 @@ const ContactPage = () => {
                 </button>
 
                 {expandedFaq === index && (
-                  <div className="px-6 py-4 bg-white dark:bg-gray-700 rounded-b-lg border-t border-green-100 dark:border-green-900">
+                  <div className="px-6 py-4 bg-white dark:dark:bg-[#49494a] rounded-lg border-t ">
                     <p className="font-[Playfair Display] text-gray-600 dark:text-gray-300">
                       {faq.answer}
                     </p>

@@ -31,7 +31,9 @@ router.delete("/:id", protect, isAdmin, userController.deleteUser);
 // إضافة مستخدم جديد (فقط أدمن)
 router.post("/", protect, isAdmin, userController.createUser);
 
-
+//بجيب اسم اليوزر للتعليقات بالهووم
+router.get("/me", protect, userController.getMe);
+ 
 // جلب بيانات مستخدم معيّن
 router.get("/:id", protect, isAdmin, userController.getUserById);
 
@@ -42,6 +44,8 @@ router.put("/:id", protect, isAdmin, userController.updateUser);
 
 // مسار جلب عدد المستخدمين المسجلين
 router.get('/user-count', userController.getUserCount);
+
+
 
 
 

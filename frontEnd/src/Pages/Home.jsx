@@ -8,6 +8,7 @@ import SliderBik from '../Component/SliderBik';
 import Mapp from '../Component/Map';
 import WhatsAndButton from '../Component/WhatsAndButton';
 import Serves from '../Component/Serves';
+import Testimonials from '../Component/Testimonials';
 
 
 function Home() {
@@ -156,7 +157,7 @@ function Home() {
 
 
       {/* Welcome Section with Animation */}
-      <div className="p-8">
+      <div className="">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -164,8 +165,9 @@ function Home() {
           viewport={{ once: true }}
           className="text-center  px-4 max-w-4xl mx-auto"
         >
-          <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 dark:text-white">Welcome to Classic</h2>
-          <p className="font-[Playfair Display] text-xl font-cursive dark:text-gray-300 mb-6 leading-relaxed">
+                                                                    {/* //dark:text-white */}
+          <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 ">Welcome to Classic</h2>
+          <p className="font-[Playfair Display] text-xl font-cursive mb-6 leading-relaxed">
             "Are you a fan of classic cars? Here at Classic, we offer a curated selection of original classic cars that combine luxury and history. Browse our collection of unique vehicles and enjoy an exceptional buying experience. Every car has a story, discover the story that sets you apart." 🚗✨
           </p>
           <div className="flex justify-center gap-8 mt-10">
@@ -190,7 +192,7 @@ function Home() {
 
       {/* Featured cars Section */}
 
-      <div className="py-16 px-4 max-w-7xl mx-auto">
+      <div className="py-8 px-4 max-w-7xl mx-auto">
         <div className="relative mb-12">
           <h2 className="font-[Playfair Display] text-5xl font-bold dark:text-white text-center">
             Featured Listings
@@ -244,7 +246,7 @@ function Home() {
 
 
       {/* Featured Bikes Section */}
-      <div className="py-16 px-4 max-w-7xl mx-auto">
+      <div className="py-8 px-4 max-w-7xl mx-auto">
         <div className="relative mb-12">
           <h2 className="font-[Playfair Display] text-5xl font-bold dark:text-white text-center">
             Featured Bikes
@@ -284,9 +286,13 @@ function Home() {
         </div>
       </div>
 
+
+
       <SliderBik />
 
       <Serves />
+      
+      <Testimonials/>
 
       <Mapp />
 

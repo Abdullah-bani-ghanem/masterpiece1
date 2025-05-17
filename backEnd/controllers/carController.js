@@ -362,6 +362,35 @@ exports.getLatestApprovedCars = async (req, res) => {
 
 
 
+//جلب اخر 7 صور للدراجات للهوم
+exports.getLatestApprovedCars7 = async (req, res) => {
+  try {
+    const latestCars = await Car.find({ status: "approved" })
+      .sort({ createdAt: -1 })
+      .skip(3)                 // تجاهل أول 3 (الأحدث)
+      .limit(7)                // جلب 7 بعدهم
+      .select("images price"); // فقط الصور
+
+    const formatted = latestCars.map((car) => ({
+      id: car._id,
+      image: car.images[0], // أول صورة
+      price: car.price,
+    }));
+
+    res.json(formatted);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch latest approved cars" });
+  }
+};
+
+
+
+
+
+
+
+ 
 
 // إضافة تعليق
 // exports.addComment = async (req, res) => {

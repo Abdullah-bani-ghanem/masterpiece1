@@ -12,4 +12,12 @@ router.post("/", protect, wishlistController.addToWishlist);
 // حذف عنصر من الويشليست
 router.delete("/:itemId", protect, wishlistController.removeFromWishlist);
 
-module.exports = router;
+// التحقق إذا العنصر موجود مسبقًا في الويشليست
+router.get("/check/:vehicleId", protect, wishlistController.isInWishlist);
+
+
+router.get("/my-car", protect, wishlistController.getUserCars);
+router.get("/my-bikee", protect, wishlistController.getUserBikes);
+
+
+module.exports = router; 
