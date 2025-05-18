@@ -19,7 +19,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64 bg-gray-900 text-white h-screen shadow-xl relative">
+    <div className="w-64 bg-gray-900 text-white h-screen shadow-xl relative mt-18 ">
       <div className="p-6 border-b border-gray-800">
         <h2 className="text-2xl font-bold text-blue-400">ClassicCars</h2>
       </div>

@@ -192,27 +192,11 @@ function Navbar() {
 
   return (
     <nav className={`bg-white border-gray-200 dark:bg-[#FBBF24] shadow-md fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
-
       <div className="flex flex-wrap items-center justify-between mx-auto p-4">
-
-
         {/* logo */}
         <a href="/" className="block">
-          {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
           <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28" />
-          {/* Classic<span className="text-green-500">Cars</span> */}
-          {/* </h2> */}
         </a>
-
-
-
-
-
-
-
-
-
-
 
         {/* Authentication Buttons */}
         <div className="flex md:order-3">
@@ -243,11 +227,6 @@ function Navbar() {
 
         {/* Language Selector */}
         <div className="flex items-center md:order-2 ml-4">
-
-
-
-
-
           {/* Mobile Menu Toggle Button */}
           <button
             data-collapse-toggle="navbar-language"
@@ -282,11 +261,6 @@ function Navbar() {
         >
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border  rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
 
-
-
-
-
-
             <NavLink
               to="/"
               className={({ isActive }) =>
@@ -299,6 +273,7 @@ function Navbar() {
             >
               Home
             </NavLink>
+            
             <NavLink
               to="/cars"
               className={({ isActive }) =>

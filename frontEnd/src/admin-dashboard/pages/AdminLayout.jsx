@@ -1,4 +1,3 @@
-// src/admin-dashboard/AdminLayout.jsx
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 

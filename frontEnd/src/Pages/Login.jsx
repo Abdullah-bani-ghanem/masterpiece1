@@ -18,7 +18,7 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login attempt:', { email, password, rememberMe });
+    // console.log('Login attempt:', { email, password, rememberMe });
   
     try {
       const res = await axios.post(
@@ -82,12 +82,12 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mt-15 ">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7 }}
-        className="max-w-5xl w-full flex bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
+        className="max-w-5xl w-full flex dark:bg-[#4a4a48] rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
       >
         {/* Left side - Login form */}
         <motion.div 
@@ -216,7 +216,7 @@ const LoginPage = () => {
                 <div className="w-full border-t border-gray-700" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-900 text-gray-400">Or continue with</span>
+                <span className="px-2  text-gray-400">Or continue with</span>
               </div>
             </motion.div>
 
@@ -225,7 +225,7 @@ const LoginPage = () => {
                 onClick={handleGoogleLogin}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex justify-center items-center py-3 px-4 border border-gray-700 rounded-md shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition-colors duration-200"
+                className="w-full flex justify-center items-center py-3 px-4 border border-yellow-500 rounded-md shadow-sm  text-sm font-medium text-gray-300 dark:bg-[#4a4a48] hover:dark:bg-[#2d2d2e] transition-colors duration-200"
               >
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path

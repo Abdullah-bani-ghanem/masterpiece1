@@ -2,21 +2,31 @@ const Testimonial = require("../models/Testimonials");
 
 // POST: Create new testimonial
 exports.createTestimonial = async (req, res) => {
-  try {
-    const { name, message, rating } = req.body;
-
-    if (!name || !message || !rating) {
-      return res.status(400).json({ message: "All fields are required." });
+    try {
+      const { name, message, rating, image } = req.body;
+  
+      if (!name || !message || !rating) {
+        return res.status(400).json({ message: "All fields are required." });
+      }
+  
+      const testimonial = new Testimonial({
+        name,
+        message,
+        rating,
+        image: image || null, // ✅ صورة اختيارية
+      });
+  
+      await testimonial.save();
+  
+      res.status(201).json({ message: "Testimonial created successfully", testimonial });
+    } catch (error) {
+      res.status(500).json({
+        message: "Server error",
+        error: error.message,
+      });
     }
-
-    const testimonial = new Testimonial({ name, message, rating });
-    await testimonial.save();
-
-    res.status(201).json({ message: "Testimonial created successfully", testimonial });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
-  }
-};
+  };
+  
 
 
 
@@ -26,7 +36,8 @@ exports.getTopTestimonials = async (req, res) => {
     try {
       const testimonials = await Testimonial.find({ showOnHome: true }) // ✅ فلترة هنا
         .sort({ rating: -1, createdAt: -1 })
-        .limit(10);
+        .limit(6);
+        
   
       res.json(testimonials);
     } catch (error) {

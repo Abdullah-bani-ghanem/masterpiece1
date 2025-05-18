@@ -1,4 +1,3 @@
-// src/pages/admin/BikeCommentsAdmin.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";

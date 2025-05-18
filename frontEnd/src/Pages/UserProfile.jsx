@@ -359,7 +359,7 @@ const UserProfile = () => {
   );
 
   return (
-    <div className="min-h-screen dark:bg-[#2d2d2e] pb-16">
+    <div className="min-h-screen dark:bg-[#2d2d2e] pb-16 mt-18">
       {/* Hero Section with username prominently displayed */}
       <div className="bg-gradient-to-r bg-opacity-90 bg-blend-overlay bg-center bg-cover py-14"
         style={{ backgroundImage: 'url("https://media.istockphoto.com/id/643897728/photo/woman-using-her-laptop.jpg?s=612x612&w=0&k=20&c=TzNngBCujgdkhwZQ6cctEVyjOAAudJLBytR8M-UHsh4=")' }}>

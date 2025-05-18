@@ -1,19 +1,3 @@
-// // bikeModel.js
-// const mongoose = require('mongoose');
-
-// const bikeSchema = new mongoose.Schema({
-//   name: { type: String, required: true },
-//   brand: { type: String, required: true },
-//   type: { type: String, required: true }, // نوع الدراجة (جبلية، سباق، إلخ)
-//   price: { type: Number, required: true },
-//   description: { type: String },
-//   imageUrl: { type: String }, // صورة الدراجة
-//   createdAt: { type: Date, default: Date.now }
-// });
-
-// module.exports = mongoose.model('Bike', bikeSchema);
-
-
 const mongoose = require("mongoose");
 
 const bikeSchema = new mongoose.Schema({

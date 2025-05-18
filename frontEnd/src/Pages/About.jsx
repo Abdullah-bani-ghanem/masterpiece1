@@ -50,7 +50,7 @@ function About() {
   return (
     <>
       {/* Hero Section with Improved Overlay */}
-      <div className="bg-gray-600 bg-opacity-60 bg-blend-overlay bg-center bg-cover py-20 md:py-32 mt-8"
+      <div className="bg-gray-600 bg-opacity-60 bg-blend-overlay bg-center bg-cover py-20 md:py-32 mt-18"
         style={{ backgroundImage: 'url("https://images.pexels.com/photos/13575247/pexels-photo-13575247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }}>
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="font-[Playfair Display] text-5xl md:text-6xl font-bold mb-6 drop-shadow-xl">About Us</h1>

@@ -5,15 +5,15 @@ exports.submitContactForm = async (req, res) => {
   try {
     const { name, email, message } = req.body;
     if (!name || !email || !message) {
-      return res.status(400).json({ message: 'يرجى ملء جميع الحقول' });
+      return res.status(400).json({ message: 'Please fill out all fields' });
     }
 
     const newContact = new Contact({ name, email, message });
     await newContact.save();
     
-    res.status(201).json({ message: 'تم إرسال النموذج بنجاح' });
+    res.status(201).json({ message: 'The form has been submitted successfully' });
   } catch (error) {
-    res.status(500).json({ message: 'حدث خطأ، يرجى المحاولة لاحقًا', error });
+    res.status(500).json({ message: 'An error occurred, please try again later', error });
   }
 };
 
@@ -23,7 +23,7 @@ exports.getAllContacts = async (req, res) => {
     const contacts = await Contact.find();
     res.status(200).json(contacts);
   } catch (error) {
-    res.status(500).json({ message: 'حدث خطأ أثناء جلب البيانات', error });
+    res.status(500).json({ message: 'An error occurred while fetching data', error });
   }
 };
 
@@ -34,9 +34,9 @@ exports.deleteContact = async (req, res) => {
   try {
     const contactId = req.params.id;
     await Contact.findByIdAndDelete(contactId);
-    res.status(200).json({ message: 'تم حذف الرسالة بنجاح' });
+    res.status(200).json({ message: 'The message has been successfully deleted' });
   } catch (error) {
-    res.status(500).json({ message: 'حدث خطأ أثناء الحذف', error });
+    res.status(500).json({ message: 'An error occurred while deleting', error });
   }
 };
 
@@ -53,8 +53,8 @@ exports.replyToContact = async (req, res) => {
       { reply },
       { new: true }
     );
-    res.status(200).json({ message: 'تم إرسال الرد بنجاح', updatedContact });
+    res.status(200).json({ message: 'Reply sent successfully', updatedContact });
   } catch (error) {
-    res.status(500).json({ message: 'حدث خطأ أثناء الرد', error });
+    res.status(500).json({ message: 'An error occurred while responding', error });
   }
 };

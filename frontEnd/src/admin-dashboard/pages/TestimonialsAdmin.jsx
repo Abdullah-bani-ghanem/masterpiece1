@@ -1,5 +1,3 @@
-// 📁 src/pages/admin/AdminTestimonials.jsx
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Trash2, EyeOff, Eye } from 'lucide-react';

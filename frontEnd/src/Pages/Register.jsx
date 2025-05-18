@@ -107,12 +107,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mt-18">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7 }}
-        className="max-w-5xl w-full flex bg-gray-900 rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
+        className="max-w-5xl w-full flex dark:bg-[#4a4a48] rounded-2xl shadow-2xl overflow-hidden border border-gray-700"
       >
         {/* Left side - Image with animation */}
         <motion.div 
@@ -297,7 +297,7 @@ const RegisterPage = () => {
                     required
                     value={formData.fullName}
                     onChange={handleChange}
-                    className="bg-gray-800 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
+                    className="bg-white  block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-black text-sm transition-colors duration-200"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -322,7 +322,7 @@ const RegisterPage = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="bg-gray-800 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
+                    className="bg-white  block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-black text-sm transition-colors duration-200"
                     placeholder="Enter your email"
                   />
                 </div>
@@ -346,7 +346,7 @@ const RegisterPage = () => {
                     required
                     value={formData.phoneNumber}
                     onChange={handleChange}
-                    className="bg-gray-800 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
+                    className="bg-white  block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-black text-sm transition-colors duration-200"
                     placeholder="Enter your phone number"
                   />
                 </div>
@@ -395,7 +395,7 @@ const RegisterPage = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="bg-gray-800 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
+                    className="bg-gray-800  block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
                     placeholder="Create a password"
                   />
                 </div>
@@ -418,7 +418,7 @@ const RegisterPage = () => {
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="bg-gray-800 focus:ring-green-500 focus:border-green-500 block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-gray-100 text-sm transition-colors duration-200"
+                    className="bg-white  block w-full pl-10 pr-3 py-3 border border-gray-700 rounded-md shadow-sm placeholder-gray-400 text-black text-sm transition-colors duration-200"
                     placeholder="Confirm your password"
                   />
                 </div>
@@ -474,7 +474,7 @@ const RegisterPage = () => {
                 <div className="w-full border-t border-gray-700" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-900 text-gray-400">Or continue with</span>
+                <span className="px-2  text-gray-400">Or continue with</span>
               </div>
             </motion.div>
 
@@ -483,7 +483,7 @@ const RegisterPage = () => {
                 onClick={() => console.log('Attempting to register with Google')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full flex justify-center items-center py-3 px-4 border border-gray-700 rounded-md shadow-sm bg-gray-800 text-sm font-medium text-gray-300 hover:bg-gray-700 transition-colors duration-200"
+                className="w-full flex justify-center items-center py-3 px-4 border border-yellow-500 rounded-md shadow-sm  text-sm font-medium dark:bg-[#4a4a48] text-gray-300 hover:dark:dark:bg-[#2d2d2e] transition-colors duration-200"
               >
                 <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                   <path

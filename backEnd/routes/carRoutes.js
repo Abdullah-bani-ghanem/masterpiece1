@@ -63,14 +63,6 @@ router.get('/approved-car-count', carController.getApprovedCarCount);
 
 
 
-// // مسار لإضافة تعليق
-// router.post('/:carId/comments', carController.addComment);
-
-// // مسار لاسترجاع التعليقات
-// router.get('/:carId/comments', carController.getComments);
-
-
-
 
 
 

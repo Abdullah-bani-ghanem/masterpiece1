@@ -295,7 +295,7 @@ exports.getUserCount = async (req, res) => {
 //بتجيب اسم اليوزر للتعليقات بالهووم
 exports.getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("name email");
+    const user = await User.findById(req.user.id).select("name email image role");
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: "Error getting user info" });

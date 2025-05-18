@@ -1,60 +1,6 @@
-
-
-
 const Car = require("../models/Car");
 
-// 1. إضافة سيارة جديدة من قبل المستخدم
-// exports.addCar = async (req, res) => {
-//   try {
-//     // استخراج البيانات من الجسم (request body)
-//     const { 
-//       name, 
-//       brand, 
-//       model, 
-//       year, 
-//       price, 
-//       condition, 
-//       images, 
-//       description,
-//       userEmail,   // البريد الإلكتروني للمستخدم
-//       userPhone,   // رقم الهاتف للمستخدم
-//       userName     // اسم المستخدم
-//     } = req.body;
-
-//     // تحقق من وجود جميع البيانات المطلوبة
-//     if (!name || !brand || !model || !year || !price || !condition) {
-//       return res.status(400).json({ message: "جميع الحقول المطلوبة يجب أن تكون مملوءة" });
-//     }
-
-//     // إنشاء السيارة الجديدة
-//     const newCar = new Car({
-//       name,
-//       brand,
-//       model,
-//       year,
-//       price,
-//       condition,
-//       images,
-//       description,
-//       userEmail,  // إضافة البريد الإلكتروني للمستخدم
-//       userPhone,  // إضافة رقم الهاتف للمستخدم
-//       userName,   // إضافة اسم المستخدم
-//       seller: req.user._id, // تأكد أن الـ middleware يضيف req.user
-//     });
-
-//     // حفظ السيارة في قاعدة البيانات
-//     await newCar.save();
-
-//     // إرسال استجابة ناجحة
-//     res.status(201).json({ message: "تم إرسال السيارة للمراجعة", car: newCar });
-
-//   } catch (err) {
-//     // التعامل مع الأخطاء
-//     res.status(500).json({ message: "فشل الإرسال", error: err.message });
-//   }
-// };
-
-
+//اضافه سياره
 exports.addCar = async (req, res) => {
   try {
     const { name, brand, model, year, price, condition, images, description } = req.body;
@@ -72,23 +18,21 @@ exports.addCar = async (req, res) => {
     });
 
     await newCar.save();
-    res.status(201).json({ message: "تم إرسال السيارة للمراجعة", car: newCar });
+    res.status(201).json({ message: "The vehicle has been sent for review", car: newCar });
   } catch (err) {
-    res.status(500).json({ message: "فشل الإرسال", error: err.message });
+    res.status(500).json({ message: "Transmission failed", error: err.message });
   }
 };
 
 
 
-
-
-
+//اضافه سياره من قبل الادمن
 exports.addCarByAdmin = async (req, res) => {
   try {
-    const { name, brand, model, year, price, description } = req.body;
-    if (!name || !brand || !model || !year || !price || !description) {
-      return res.status(400).json({ message: "كل الحقول مطلوبة!" });
-    }
+    const { name, brand, model, year, price, condition, description } = req.body;
+    // if (!name || !brand || !model || !year || !price || !description) {
+    //   return res.status(400).json({ message: "كل الحقول مطلوبة!" });
+    // }
 
     // إذا كانت الصور موجودة
     const images = req.files ? req.files.map(file => file.filename) : [];
@@ -100,16 +44,17 @@ exports.addCarByAdmin = async (req, res) => {
       model,
       year,
       price,
+      condition,
       images,
       description,
       seller: req.user._id,  // تأكد من أنك تضيف الـ user بشكل صحيح
     });
 
     await newCar.save();
-    res.status(201).json({ message: "تم إرسال السيارة", car: newCar });
+    res.status(201).json({ message: "The car has been sent", car: newCar });
   } catch (err) {
     console.error("Error in adding car:", err);  // إضافة تسجيل الأخطاء
-    res.status(500).json({ message: "فشل الإرسال", error: err.message });
+    res.status(500).json({ message: "Transmission failed", error: err.message });
   }
 };
 
@@ -122,7 +67,7 @@ exports.getPendingCars = async (req, res) => {
     const cars = await Car.find({ status: "pending" }).populate("seller", "name email");
     res.status(200).json(cars);
   } catch (err) {
-    res.status(500).json({ message: "حدث خطأ أثناء الجلب", error: err.message });
+    res.status(500).json({ message: "An error occurred while fetching", error: err.message });
   }
 };
 
@@ -136,7 +81,7 @@ exports.approveOrRejectCar = async (req, res) => {
     const { status, adminNote } = req.body;
 
     if (!["approved", "rejected"].includes(status)) {
-      return res.status(400).json({ message: "الحالة غير صحيحة" });
+      return res.status(400).json({ message: "The status is incorrect" });
     }
 
     const updatedCar = await Car.findByIdAndUpdate(
@@ -145,11 +90,11 @@ exports.approveOrRejectCar = async (req, res) => {
       { new: true }
     );
 
-    if (!updatedCar) return res.status(404).json({ message: "السيارة غير موجودة" });
+    if (!updatedCar) return res.status(404).json({ message: "The car does not exist" });
 
-    res.status(200).json({ message: `تم ${status === "approved" ? "الموافقة" : "الرفض"}`, car: updatedCar });
+    res.status(200).json({ message: `تم ${status === "approved" ? "Approval" : "rejection"}`, car: updatedCar });
   } catch (err) {
-    res.status(500).json({ message: "فشل التحديث", error: err.message });
+    res.status(500).json({ message: "Update failed", error: err.message });
   }
 };
 
@@ -164,11 +109,11 @@ exports.updateCarByAdmin = async (req, res) => {
 
     const updatedCar = await Car.findByIdAndUpdate(id, { ...updates, updatedAt: Date.now() }, { new: true });
 
-    if (!updatedCar) return res.status(404).json({ message: "السيارة غير موجودة" });
+    if (!updatedCar) return res.status(404).json({ message: "The car does not exist" });
 
-    res.status(200).json({ message: "تم تعديل بيانات السيارة", car: updatedCar });
+    res.status(200).json({ message: "The vehicle data has been modified", car: updatedCar });
   } catch (err) {
-    res.status(500).json({ message: "فشل التحديث", error: err.message });
+    res.status(500).json({ message: "Update failed", error: err.message });
   }
 };
 
@@ -177,11 +122,11 @@ exports.updateCarByAdmin = async (req, res) => {
 exports.getCarById = async (req, res) => {
     try {
       const car = await Car.findById(req.params.id).populate("seller", "name email");
-      if (!car) return res.status(404).json({ message: "السيارة غير موجودة" });
+      if (!car) return res.status(404).json({ message: "The car does not exist" });
   
       res.status(200).json(car);
     } catch (error) {
-      res.status(500).json({ message: "فشل في جلب بيانات السيارة", error: error.message });
+      res.status(500).json({ message: "Failed to bring cars", error: error.message });
     }
   };
   
@@ -196,7 +141,7 @@ exports.getCarById = async (req, res) => {
       res.status(200).json(cars);
     } catch (error) {
       console.error("❌ getAllCarsForAdmin ERROR:", error.message);
-      res.status(500).json({ message: "فشل في جلب السيارات", error: error.message });
+      res.status(500).json({ message: "Failed to bring cars", error: error.message });
     }
   };
   
@@ -241,10 +186,10 @@ exports.submitCarRequest = async (req, res) => {
   
       await newCar.save();
   
-      res.status(201).json({ message: "🚗 تم حفظ السيارة بنجاح", car: newCar });
+      res.status(201).json({ message: "🚗 The car has been successfully saved", car: newCar });
     } catch (error) {
       console.error("❌ Error saving car:", error.message);
-      res.status(500).json({ message: "خطأ في حفظ السيارة", error: error.message });
+      res.status(500).json({ message: "Error saving the car", error: error.message });
     }
   };
   
@@ -254,16 +199,16 @@ exports.submitCarRequest = async (req, res) => {
   exports.approveAndEditCar = async (req, res) => {
     try {
       const car = await Car.findById(req.params.id);
-      if (!car) return res.status(404).json({ message: "السيارة غير موجودة" });
+      if (!car) return res.status(404).json({ message: "The car does not exist" });
   
       // تحديث معلومات السيارة من البودي
       Object.assign(car, req.body);
       car.approved = true;
   
       await car.save();
-      res.json({ message: "تمت الموافقة على السيارة وتحديثها", car });
+      res.json({ message: "The vehicle has been approved and updated", car });
     } catch (error) {
-      res.status(500).json({ message: "خطأ أثناء الموافقة أو التعديل", error });
+      res.status(500).json({ message: "Error while approving or modifying", error });
     }
   };
   
@@ -280,7 +225,7 @@ exports.getAllCars = async (req, res) => {
       const cars = await Car.find(query).populate("seller", "name email");
       res.status(200).json(cars);
     } catch (err) {
-      res.status(500).json({ message: "فشل في جلب السيارات", error: err.message });
+      res.status(500).json({ message: "Failed to bring cars", error: err.message });
     }
   };
   
@@ -289,7 +234,9 @@ exports.getAllCars = async (req, res) => {
 // عرض جميع السيارات المعتمدة
 exports.getApprovedCars = async (req, res) => {
     try {
-      const cars = await Car.find({ status: "approved" }); // جلب السيارات المعتمدة فقط
+      const cars = await Car.find({ status: "approved" })
+      .sort({ createdAt: -1 }); // جلب السيارات المعتمدة فقط
+      
       if (!cars || cars.length === 0) {
         return res.status(404).json({ message: "No approved cars found" });
       }
@@ -336,7 +283,7 @@ exports.getApprovedCarCount = async (req, res) => {
     res.status(200).json(cars);
   } catch (error) {
     console.error("❌ getAllCarsForAdmin ERROR:", error.message);
-    res.status(500).json({ message: "فشل في جلب السيارات", error: error.message });
+    res.status(500).json({ message: "Failed to bring cars", error: error.message });
   }
 };
 
@@ -383,52 +330,3 @@ exports.getLatestApprovedCars7 = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch latest approved cars" });
   }
 };
-
-
-
-
-
-
-
- 
-
-// إضافة تعليق
-// exports.addComment = async (req, res) => {
-//   const { carId } = req.params;
-//   const { comment } = req.body;
-//   const userId = req.user._id;  // assuming you have a user authenticated with JWT token
-
-//   try {
-//     const car = await Car.findById(carId);
-//     if (!car) {
-//       return res.status(404).json({ message: "Car not found" });
-//     }
-
-//     // إضافة تعليق إلى السيارة
-//     car.comments.push({ user: userId, comment });
-//     await car.save();
-
-//     res.status(200).json({ message: "Comment added successfully" });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
-
-
-
-
-// // الحصول على جميع التعليقات الخاصة بالسيارة
-// exports.getComments = async (req, res) => {
-//   const { carId } = req.params;
-
-//   try {
-//     const car = await Car.findById(carId).populate('comments.user', 'name'); // Populate user details
-//     if (!car) {
-//       return res.status(404).json({ message: "Car not found" });
-//     }
-
-//     res.status(200).json(car.comments); // إرجاع التعليقات فقط
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };

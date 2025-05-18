@@ -1,4 +1,3 @@
-
 const Bike = require('../models/bikeModel');
 
 // جلب جميع الدراجات
@@ -12,9 +11,7 @@ exports.getAllBikes = async (req, res) => {
 };
 
 
-
-
- 
+ //اضافه دراجه
 exports.addBike = async (req, res) => {
   try {
     const { name, brand, type, price, description, model, year, condition, status, adminNote } = req.body;
@@ -50,9 +47,6 @@ exports.addBike = async (req, res) => {
 
 
 
-
-
-
 // حذف دراجة بواسطة ID
 exports.deleteBike = async (req, res) => {
   try {
@@ -63,8 +57,6 @@ exports.deleteBike = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while deleting the bike', error }); // إذا حدث خطأ
   }
 };
-
-
 
 
 
@@ -94,8 +86,6 @@ exports.updateBike = async (req, res) => {
 
 
 
-
-
 // جلب الدراجة بواسطة ID
 exports.getBikeById = async (req, res) => {
   try {
@@ -114,18 +104,17 @@ exports.getBikeById = async (req, res) => {
 
 
 
-
-
 // جلب الدراجات المعتمدة فقط
 exports.getApprovedBikes = async (req, res) => {
   try {
-    const bikes = await Bike.find({ status: 'approved' }); // جلب الدراجات المعتمدة فقط
+    const bikes = await Bike.find({ status: 'approved' })
+    .sort({ createdAt: -1 });; // جلب الدراجات المعتمدة فقط
     res.status(200).json(bikes); // إرجاع الدراجات المعتمدة
   } catch (error) {
     res.status(500).json({ message: 'An error occurred while fetching approved bikes', error }); // إذا حدث خطأ
   }
 };
-
+ 
 
 
 
@@ -139,8 +128,6 @@ exports.getPendingBikes = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching bikes', error }); // إذا حدث خطأ
   }
 };
-
-
 
 
 
@@ -168,7 +155,6 @@ exports.approveOrRejectBike = async (req, res) => {
 
 
 
-
 // جلب عدد الدراجات المعتمدة
 exports.getApprovedBikeCount = async (req, res) => {
   try {
@@ -182,8 +168,6 @@ exports.getApprovedBikeCount = async (req, res) => {
 
 
 
-
-
 // جلب الدراجات المعلقة
 exports.getPendingBikes = async (req, res) => {
   try {
@@ -193,9 +177,6 @@ exports.getPendingBikes = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching pending bikes', error });
   }
 };
-
-
-
 
 
 
@@ -253,19 +234,6 @@ exports.getLatestApprovedBikes = async (req, res) => {
     res.status(500).json({ message: 'Error fetching latest approved bikes', error });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

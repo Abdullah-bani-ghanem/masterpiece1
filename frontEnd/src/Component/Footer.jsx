@@ -9,21 +9,12 @@ const Footer = () => {
           <div className="w-full md:w-1/4 px-4 mb-8">
             <div className="mb-6">
 
-
-
-
               {/* logo */}
               <a href="/" className="block">
-            {/* <h2 className="text-gray-900 font-bold text-3xl "> */}
-            <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28"/>
-            {/* Classic<span className="text-green-500">Cars</span> */}
-            {/* </h2> */}
-        </a>
+                <img width={200} src="/classic-cars-high-resolution-logo-transparent.png" className="mr-28" />
+              </a>
 
             </div>
-
-
-
 
 
             <p className="font-[Playfair Display] text-black-300 mb-4">

@@ -38,7 +38,6 @@ exports.addComment = async (req, res) => {
 
 
 
-
 // 2. جلب التعليقات الخاصة بسيارة معينة
 exports.getComments = async (req, res) => {
     const { bikeId } = req.params;
@@ -56,8 +55,6 @@ exports.getComments = async (req, res) => {
         res.status(500).json({ message: 'Failed to load comments.' });
     }
 };
-
-
 
 
 
@@ -127,15 +124,6 @@ exports.deleteComment = async (req, res) => {
 
 
 
-// جلب جميع تعليقات الدراجات
-// exports.getAllBikeComments = async (req, res) => {
-//     try {
-//       const comments = await Comment.find().populate('userId', 'name email');
-//       res.status(200).json(comments);
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error fetching bike comments', error });
-//     }
-//   };
 //جلب التعليق المبلغ عنه للادمن
 exports.getReportedComments = async (req, res) => {
     try {
@@ -151,7 +139,6 @@ exports.getReportedComments = async (req, res) => {
   
   
 
-
   // حذف تعليق دراجة
   exports.deleteBikeComment = async (req, res) => {
     try {
@@ -162,8 +149,6 @@ exports.getReportedComments = async (req, res) => {
       res.status(500).json({ message: 'Error deleting bike comment', error });
     }
   };
-
-
 
 
 

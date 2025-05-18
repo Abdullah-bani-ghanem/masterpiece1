@@ -173,7 +173,7 @@ function Bikes() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-8">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-18">
       {/* Header Section with Improved Hero */}
       <div className="bg-black bg-opacity-70 py-12 px-4 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('../img/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>
@@ -285,6 +285,7 @@ function Bikes() {
                   <p className="text-gray-300 mb-4 line-clamp-2">{bike.description}</p>
                   <div className="mt-4 flex justify-between items-center">
                     <span className="text-[#FBBF24] font-semibold">${bike.price}</span>
+                    
                     <Link to={`/bike-details/${bike._id}`}>
                       <button className="dark:bg-[#FBBF24]  hover:bg-yellow-600 text-white py-2 px-4 rounded-lg transition-colors duration-300 font-medium">
                         View Details

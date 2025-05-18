@@ -2,8 +2,6 @@ const FormCar = require('../models/formCarModel');
 
 // POST /api/cars
 const createCar = async (req, res) => {
-    console.log('sv', req);
-    
   try {
     const {
       make,
@@ -15,7 +13,12 @@ const createCar = async (req, res) => {
       fuelType,
       transmission,
       price,
+      condition,
+      description,
     } = req.body;
+    console.log('✅ عدد الصور:', req.files.length);
+    // ✅ دعم صور متعددة
+    const imageUrls = req.files ? req.files.map(file => `/uploads/${file.filename}`) : [];
 
     const newCar = new FormCar({
       make,
@@ -27,7 +30,9 @@ const createCar = async (req, res) => {
       fuelType,
       transmission,
       price,
-      imageUrl: req.file ? `/uploads/${req.file.filename}` : '', // إذا رفعنا صورة
+      condition,
+      description,
+      images: imageUrls, // ← خزّن مصفوفة الصور هنا
     });
 
     await newCar.save();

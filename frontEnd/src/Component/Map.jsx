@@ -24,14 +24,6 @@ function Mapp() {
           </div>
         </div>
       </div>
-
-
-
-
-
-
-
-
       
    </>
   )

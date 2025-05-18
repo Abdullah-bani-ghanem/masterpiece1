@@ -172,7 +172,7 @@ function Cars() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-8">
+    <div className="min-h-screen bg-gradient-to-b dark:bg-[#2d2d2e] text-white relative mt-18">
       {/* Header Section with Improved Hero */}
       <div className="bg-black bg-opacity-70 py-12 px-4 mb-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-[url('../img/hero-bg.jpg')] bg-cover bg-center mix-blend-overlay"></div>

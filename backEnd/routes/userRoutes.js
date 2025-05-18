@@ -1,26 +1,15 @@
-// const express = require("express");
-// const router = express.Router();
-// const userController = require("../controllers/userController");
-// router.get("/check-auth", userController.checkAuth);
-// // المسارات
-// router.post("/register", userController.register);  // التسجيل
-// router.post("/login", userController.login);        // تسجيل الدخول
-// router.post("/logout", userController.logout);        // تسجيل الدخول
-
-// module.exports = router;
-
-
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 const upload = require("../middleware/multerConfig");
-const { protect, isAdmin } = require("../middleware/auth");
+const { protect, isAdmin } = require("../middleware/auth");  
 
 
 router.get("/check-auth", userController.checkAuth);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.post("/logout", userController.logout);
+
 // router.put("/update-profile", userController.updateProfile);
 router.put("/update-profile", upload.single("profileImage"), userController.updateProfile);
 // ✅ راوت جلب كل المستخدمين (للأدمن فقط)

@@ -10,7 +10,7 @@ const formCarSchema = new mongoose.Schema({
   fuelType: String,
   transmission: { type: String, enum: ['automatic', 'manual'] },
   price: Number,
-  imageUrl: String, // لاحقًا نستخدمه عند رفع الصورة
+  images: [{ type: String }],
 }, {
   timestamps: true
 });

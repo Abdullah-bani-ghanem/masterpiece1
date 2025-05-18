@@ -272,7 +272,7 @@ const BikeDetails = () => {
 
     return (
         <div className="bg-gradient-to-b dark:bg-[#2d2d2e] pt-12 pb-20">
-            <div className="max-w-6xl mx-auto px-4">
+            <div className="max-w-6xl mx-auto px-20 mt-15">
                 {/* Vehicle Title Section */}
                 <div className="mb-12 text-center">
                     <h1 className="text-5xl md:text-6xl font-serif font-bold text-[#FBBF24] mb-4">

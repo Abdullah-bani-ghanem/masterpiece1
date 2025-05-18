@@ -10,14 +10,12 @@ import WhatsAndButton from '../Component/WhatsAndButton';
 import Serves from '../Component/Serves';
 import Testimonials from '../Component/Testimonials';
 
-
 function Home() {
   const [userCount, setUserCount] = useState(0);
   const [approvedCarCount, setApprovedCarCount] = useState(0);
   const [approvedBikeCount, setApprovedBikeCount] = useState(0);
   const [featuredCarss, setFeaturedCarss] = useState([]);
   const [featuredBikes, setFeaturedBikes] = useState([]);
-
 
   //عداد للدراجات والسيارات واليوزر
   useEffect(() => {
@@ -73,45 +71,13 @@ function Home() {
     fetchFeaturedData();
   }, []);
 
-
-  // //بتجيب اول ثلاث سيارات
-  // useEffect(() => {
-  //   const fetchFeatured = async () => {
-  //     try {
-  //       const res = await axios.get('http://localhost:5000/api/cars/latest-approved');
-  //       setFeaturedCarss(res.data);
-  //     } catch (error) {
-  //       console.error('Error loading featured cars:', error);
-  //     }
-  //   };
-
-  //   fetchFeatured();
-  // }, []);
-
-
-  // //بتجيب اول ثلاث دراجات
-  // useEffect(() => {
-  //   const fetchBikes = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:5000/api/bikes/latest-approved");
-  //       setFeaturedBikes(res.data);
-  //     } catch (err) {
-  //       console.error("Error loading featured bikes", err);
-  //     }
-  //   };
-
-  //   fetchBikes();
-  // }, []);
-
-
-
   return (
 
-    <div className="bg-gray-50 dark:bg-[#2d2d2e]">
+    <div className="bg-gray-50 dark:bg-[#2d2d2e] mt-18">
 
       {/* Hero Section with Enhanced CTA */}
-      <div className="relative h-screen">
-        <div className="absolute inset-0 z-10"></div>
+      <div className="relative h-screen ">
+        <div className="absolute inset-0 z-10 "></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center w-full max-w-4xl px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -154,8 +120,6 @@ function Home() {
         </>
       </div>
 
-
-
       {/* Welcome Section with Animation */}
       <div className="">
         <motion.div
@@ -166,8 +130,8 @@ function Home() {
           className="text-center  px-4 max-w-4xl mx-auto"
         >
                                                                     {/* //dark:text-white */}
-          <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 ">Welcome to Classic</h2>
-          <p className="font-[Playfair Display] text-xl font-cursive mb-6 leading-relaxed">
+          <h2 className="font-[Playfair Display] text-4xl font-cursive font-bold mb-6 text-white ">Welcome to Classic</h2>
+          <p className="font-[Playfair Display] text-xl font-cursive mb-6 leading-relaxed text-white">
             "Are you a fan of classic cars? Here at Classic, we offer a curated selection of original classic cars that combine luxury and history. Browse our collection of unique vehicles and enjoy an exceptional buying experience. Every car has a story, discover the story that sets you apart." 🚗✨
           </p>
           <div className="flex justify-center gap-8 mt-10">
@@ -188,8 +152,6 @@ function Home() {
       </div>
 
 
-
-
       {/* Featured cars Section */}
 
       <div className="py-8 px-4 max-w-7xl mx-auto">
@@ -197,9 +159,7 @@ function Home() {
           <h2 className="font-[Playfair Display] text-5xl font-bold dark:text-white text-center">
             Featured Listings
           </h2>
-
         </div>
-
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredCarss.map(car => (
@@ -239,11 +199,7 @@ function Home() {
         </div>
       </div>
 
-
-
       <SliderCar />
-
-
 
       {/* Featured Bikes Section */}
       <div className="py-8 px-4 max-w-7xl mx-auto">
@@ -285,8 +241,6 @@ function Home() {
           ))}
         </div>
       </div>
-
-
 
       <SliderBik />
 

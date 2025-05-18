@@ -89,11 +89,10 @@ const BikeDetailsAdminPage = () => {
                 <div className="bg-gradient-to-r  from-gray-800 to-gray-900 px-6 py-6 text-center">
                     <h1 className="text-3xl font-bold text-white">{bike.name}</h1>
                     <div className="mt-4">
-                        <span className={`inline-block px-6 py-2 rounded-full text-sm font-bold ${
-                            bike.status === 'approved' ? 'bg-green-500 text-white' :
-                            bike.status === 'rejected' ? 'bg-red-500 text-white' :
-                            'bg-yellow-400 text-gray-800'
-                        } uppercase tracking-wider`}>
+                        <span className={`inline-block px-6 py-2 rounded-full text-sm font-bold ${bike.status === 'approved' ? 'bg-green-500 text-white' :
+                                bike.status === 'rejected' ? 'bg-red-500 text-white' :
+                                    'bg-yellow-400 text-gray-800'
+                            } uppercase tracking-wider`}>
                             {bike.status}
                         </span>
                     </div>

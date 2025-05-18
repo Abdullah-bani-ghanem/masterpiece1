@@ -9,10 +9,3 @@ const reviewSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Review", reviewSchema);
-// لماذا؟ يسمح للمشترين بتقييم البائعين أو السيارات.
-// البيانات المطلوبة:
-// المقيِّم (reviewer: مرجع إلى User).
-// السيارة (car: مرجع إلى Car).
-// التقييم (عدد من 1 إلى 5).
-// التعليق.
-// تاريخ المراجعة.

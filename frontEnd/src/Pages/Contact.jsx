@@ -164,7 +164,7 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#2d2d2e] relative mt-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#2d2d2e] relative mt-18">
       {/* Hero Section */}
       <div className="bg-gray-500 bg-opacity-70 bg-blend-overlay bg-center bg-cover py-25"
         style={{ backgroundImage: 'url("https://png.pngtree.com/background/20230522/original/pngtree-classic-cars-parked-on-a-street-with-rain-and-clouds-picture-image_2696052.jpg")' }}>

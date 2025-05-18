@@ -145,7 +145,7 @@ const ClassicCarsPaymentForm = () => {
 
 
       {/* باقي الصفحة */}
-      <div className="flex items-center justify-center  dark:bg-[#2d2d2e] p-4">
+      <div className="flex items-center justify-center  dark:bg-[#2d2d2e] p-4 mt-5">
 
         <div
           className="text-white border border-gray-700 rounded-lg overflow-hidden py-10 mt-25 mb-20"

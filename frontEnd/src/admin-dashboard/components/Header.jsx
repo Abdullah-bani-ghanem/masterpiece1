@@ -2,7 +2,7 @@ import { LogOut } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="bg-gradient-to-r from-slate-50 to-slate-100 shadow-md p-4 flex justify-between items-center border-b border-slate-200">
+    <header className="bg-gradient-to-r from-slate-50 to-slate-100 shadow-md p-4 flex justify-between items-center border-b border-slate-200 mt-20">
       <div className="flex items-center space-x-2">
         <svg 
           className="w-6 h-6 text-blue-600" 
